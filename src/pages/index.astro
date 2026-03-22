@@ -136,45 +136,75 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
   <!-- PRICING -->
   <section id="planes" class="section--pricing">
     <div class="container">
+      <div class="pricing-hero-badge" data-aos="fade-up">0% COMISIÓN POR TICKET — SIEMPRE</div>
       <h2 class="section-title" data-aos="fade-up">Planes para <span class="gradient-text">organizadores</span></h2>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Sin costos ocultos. Elige el modelo que mejor te funcione.</p>
-      <div class="pricing-grid">
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Sin comisiones ocultas. El dinero de tus ventas va 100% a tu cuenta.</p>
+      <div class="pricing-grid pricing-grid--3col">
+        <!-- GRATIS -->
         <div class="pricing-card island" data-aos="fade-up" data-aos-delay="0">
-          <div class="pricing-badge">Starter</div>
+          <div class="pricing-badge">Gratis</div>
           <div class="pricing-price">
-            <span class="pricing-amount">Gratis</span>
+            <span class="pricing-amount">S/ 0</span>
           </div>
-          <p class="pricing-tagline">3-5% comisión por venta</p>
-          <p class="pricing-desc">Ideal para organizadores que están empezando o hacen eventos esporádicos.</p>
+          <p class="pricing-tagline pricing-tagline--lime">Primeros 10 eventos</p>
+          <p class="pricing-desc">Tus primeros 10 eventos son gratis. Sin costo, sin comisión, nada.</p>
+          <div class="pricing-commission-badge"><span class="commission-zero">0%</span> comisión</div>
           <div class="pricing-divider"></div>
           <ul class="pricing-features">
-            <li><span class="pricing-check">✓</span> Hasta 3 eventos activos</li>
+            <li><span class="pricing-check">✓</span> 10 eventos sin costo</li>
+            <li><span class="pricing-check">✓</span> 0% comisión por ticket</li>
             <li><span class="pricing-check">✓</span> QR anti-fraude</li>
             <li><span class="pricing-check">✓</span> Página pública del evento</li>
-            <li><span class="pricing-check">✓</span> Dashboard básico</li>
+            <li><span class="pricing-check">✓</span> Dashboard completo</li>
             <li><span class="pricing-check">✓</span> Soporte por chat</li>
           </ul>
           <a href="/register" class="btn-secondary pricing-cta">Comenzar gratis</a>
         </div>
-        <div class="pricing-card pricing-card--featured island" data-aos="fade-up" data-aos-delay="150">
-          <div class="pricing-popular">Más popular</div>
-          <div class="pricing-badge pricing-badge--pro">Pro</div>
+        <!-- POR EVENTO -->
+        <div class="pricing-card island" data-aos="fade-up" data-aos-delay="100">
+          <div class="pricing-badge pricing-badge--coral">Por Evento</div>
           <div class="pricing-price">
-            <span class="pricing-amount">S/ 149</span>
+            <span class="pricing-amount">Desde S/ 300</span>
+          </div>
+          <p class="pricing-tagline pricing-tagline--coral">Pago único por evento</p>
+          <p class="pricing-desc">Tarifa fija según la capacidad de tickets. Sin sorpresas.</p>
+          <div class="pricing-commission-badge"><span class="commission-zero">0%</span> comisión</div>
+          <div class="pricing-divider"></div>
+          <div class="pricing-tiers">
+            <div class="pricing-tier-row"><span class="tier-label">0–100 tickets</span><span class="tier-value">S/ 300</span></div>
+            <div class="pricing-tier-row"><span class="tier-label">101–1,000 tickets</span><span class="tier-value">S/ 500</span></div>
+            <div class="pricing-tier-row"><span class="tier-label">1,001+ tickets</span><span class="tier-value">S/ 1,000</span></div>
+          </div>
+          <ul class="pricing-features">
+            <li><span class="pricing-check pricing-check--coral">✓</span> 0% comisión por ticket</li>
+            <li><span class="pricing-check pricing-check--coral">✓</span> Todas las features</li>
+            <li><span class="pricing-check pricing-check--coral">✓</span> Analytics en tiempo real</li>
+            <li><span class="pricing-check pricing-check--coral">✓</span> Control de acceso QR</li>
+          </ul>
+          <a href="/register" class="btn-secondary pricing-cta">Elegir este plan</a>
+        </div>
+        <!-- ILIMITADO -->
+        <div class="pricing-card pricing-card--featured island" data-aos="fade-up" data-aos-delay="200">
+          <div class="pricing-popular">⭐ Recomendado</div>
+          <div class="pricing-badge pricing-badge--pro">Ilimitado</div>
+          <div class="pricing-price">
+            <span class="pricing-amount">S/ 799</span>
             <span class="pricing-period">/mes</span>
           </div>
-          <p class="pricing-tagline">Solo 1% de comisión</p>
-          <p class="pricing-desc">Para organizadores profesionales que necesitan control total y sin límites.</p>
+          <p class="pricing-tagline">Eventos ilimitados</p>
+          <p class="pricing-desc">Sin pago por evento. Para organizadores que hacen múltiples eventos al mes.</p>
+          <div class="pricing-commission-badge"><span class="commission-zero">0%</span> comisión</div>
           <div class="pricing-divider"></div>
           <ul class="pricing-features">
             <li><span class="pricing-check pricing-check--pro">✓</span> Eventos ilimitados</li>
+            <li><span class="pricing-check pricing-check--pro">✓</span> 0% comisión por ticket</li>
+            <li><span class="pricing-check pricing-check--pro">✓</span> Sin pago por evento</li>
             <li><span class="pricing-check pricing-check--pro">✓</span> Analytics avanzados</li>
             <li><span class="pricing-check pricing-check--pro">✓</span> Soporte prioritario</li>
             <li><span class="pricing-check pricing-check--pro">✓</span> API access</li>
-            <li><span class="pricing-check pricing-check--pro">✓</span> Badge de organizador verificado</li>
             <li><span class="pricing-check pricing-check--pro">✓</span> Widget personalizable</li>
           </ul>
-          <a href="/register" class="btn-primary pricing-cta">Comenzar con Pro →</a>
+          <a href="/register" class="btn-primary pricing-cta">Comenzar con Ilimitado →</a>
         </div>
       </div>
 
@@ -186,7 +216,6 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
           <span class="payment-pill">Plin</span>
           <span class="payment-pill">MercadoPago</span>
           <span class="payment-pill">Visa / Mastercard</span>
-          <span class="payment-pill">Transferencia bancaria</span>
         </div>
         <p class="payment-methods__note">Pagos seguros. El dinero va directo a la cuenta del organizador.</p>
       </div>
@@ -520,11 +549,22 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
   :global(.org-card p) { color: var(--white-60); font-size: 0.95rem; }
 
   /* PRICING */
-  .pricing-grid {
+  .pricing-hero-badge {
+    display: inline-block;
+    padding: 10px 28px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--white);
+    background: linear-gradient(135deg, var(--violet), var(--coral));
+    border-radius: 50px;
+    margin-bottom: 24px;
+  }
+  .pricing-grid--3col {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    max-width: 780px;
+    max-width: 1100px;
     margin: 0 auto;
     align-items: start;
   }
@@ -536,6 +576,23 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
   .pricing-card--featured {
     border: 1px solid rgba(139,92,246,0.3);
     background: rgba(139,92,246,0.06);
+  }
+  .pricing-card--featured::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--radius);
+    padding: 1px;
+    background: linear-gradient(135deg, var(--violet), var(--coral));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: border-glow 4s ease-in-out infinite alternate;
+  }
+  @keyframes border-glow {
+    0% { opacity: 0.3; }
+    100% { opacity: 0.8; }
   }
   .pricing-popular {
     position: absolute;
@@ -560,13 +617,13 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     margin-bottom: 12px;
   }
   .pricing-badge--pro { color: var(--violet); }
+  .pricing-badge--coral { color: var(--coral); }
   .pricing-price { margin-bottom: 4px; }
   .pricing-amount {
     font-size: 2.5rem;
     font-weight: 700;
     color: var(--white);
   }
-  .pricing-card--featured .pricing-amount { color: var(--white); }
   .pricing-period {
     font-size: 0.9rem;
     color: var(--white-60);
@@ -578,18 +635,52 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     font-weight: 600;
     margin-bottom: 12px;
   }
-  .pricing-card:not(.pricing-card--featured) .pricing-tagline { color: var(--lime); }
+  .pricing-tagline--lime { color: var(--lime); }
+  .pricing-tagline--coral { color: var(--coral); }
+  .pricing-commission-badge {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 6px 16px;
+    background: rgba(163,230,53,0.1);
+    border: 1px solid rgba(163,230,53,0.2);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--lime);
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .commission-zero {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--lime);
+  }
   .pricing-desc {
     color: var(--white-60);
     font-size: 0.85rem;
     line-height: 1.6;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
   }
   .pricing-divider {
     height: 1px;
     background: rgba(255,255,255,0.08);
     margin-bottom: 20px;
   }
+  .pricing-tiers {
+    margin-bottom: 20px;
+  }
+  .pricing-tier-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+  }
+  .pricing-tier-row:nth-child(odd) {
+    background: rgba(255,255,255,0.03);
+  }
+  .tier-label { color: var(--white-60); }
+  .tier-value { color: var(--white); font-weight: 700; }
   .pricing-features {
     list-style: none;
     margin-bottom: 28px;
@@ -609,6 +700,7 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     flex-shrink: 0;
   }
   .pricing-check--pro { color: var(--violet); }
+  .pricing-check--coral { color: var(--coral); }
   .pricing-cta { width: 100%; justify-content: center; }
 
   /* Payment Methods */
@@ -627,7 +719,7 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
   .payment-methods__note { font-size: 0.78rem; color: var(--white-60); margin-top: 12px; }
 
   @media (max-width: 768px) {
-    .pricing-grid { grid-template-columns: 1fr; max-width: 400px; }
+    .pricing-grid--3col { grid-template-columns: 1fr; max-width: 400px; }
   }
 
   /* REVERSE MARQUEE */

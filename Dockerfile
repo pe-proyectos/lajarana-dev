@@ -3,6 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+ENV PORT=80
 RUN npm run build
 
 FROM node:22-alpine

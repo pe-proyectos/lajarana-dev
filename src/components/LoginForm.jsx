@@ -14,7 +14,7 @@ export default function LoginForm() {
     try {
       const data = await api.login({ email, password });
       setToken(data.token || data.access_token);
-      window.location.href = '/dashboard';
+      window.location.href = '/mi-cuenta';
     } catch (err) {
       setError(err.message);
     } finally {
@@ -26,7 +26,7 @@ export default function LoginForm() {
     <div className="auth-page">
       <div className="auth-card">
         <h1 className="gradient-text">Iniciar Sesión</h1>
-        <p className="subtitle">Accede a tu panel de organizador</p>
+        <p className="subtitle">Accede a tus entradas y compras</p>
         {error && <div className="error-msg">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-group">
@@ -43,6 +43,9 @@ export default function LoginForm() {
         </form>
         <div className="auth-link">
           ¿No tienes cuenta? <a href="/register">Regístrate</a>
+        </div>
+        <div className="auth-link" style={{ marginTop: 16, paddingTop: 16, borderTop: '1px solid var(--white-06)' }}>
+          ¿Eres organizador? <a href="https://lajarana-org.luminari.agency/login">Inicia sesión como organizador →</a>
         </div>
       </div>
     </div>

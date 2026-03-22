@@ -6,7 +6,7 @@ import FeaturedEvents from '../components/FeaturedEvents.jsx';
 import AnimatedCard from '../components/AnimatedCard.jsx';
 ---
 
-<Layout title="LaJarana — Entradas para tus eventos favoritos" description="Plataforma de tickets digitales para eventos en Perú. Compra entradas, muestra tu QR y disfruta." ogImage="/og-image.jpg">
+<Layout title="LaJarana — Encuentra eventos increíbles" description="Encuentra los mejores eventos en Perú. Compra entradas digitales, muestra tu QR y disfruta." ogImage="/og-image.jpg">
   <NavBar current="home" client:load />
 
   <!-- HERO -->
@@ -105,120 +105,12 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
 
   <hr class="gradient-separator" />
 
-  <!-- FOR ORGANIZERS CTA -->
-  <section class="section--organizers">
-    <div class="stripe-decoration" style="top:10%;right:0;background:repeating-linear-gradient(-45deg,var(--lime),var(--lime) 2px,transparent 2px,transparent 12px);"></div>
-    <div class="container">
+  <!-- ORGANIZER CTA -->
+  <section class="section--org-cta">
+    <div class="container" style="text-align:center;">
       <h2 class="section-title" data-aos="fade-up">¿Organizas <span class="gradient-text">eventos</span>?</h2>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Vende entradas, gestiona asistentes y controla todo desde un solo dashboard.</p>
-      <div class="org-grid">
-        <AnimatedCard client:visible className="org-card" delay={0} glowColor="var(--lime)">
-          <h3>💰 Pagos directos</h3>
-          <p>La plata va directo a tu cuenta. Sin intermediarios reteniendo tu dinero por semanas.</p>
-        </AnimatedCard>
-        <AnimatedCard client:visible className="org-card" delay={0.1} glowColor="var(--violet)">
-          <h3>📊 Analytics en tiempo real</h3>
-          <p>Ventas, ingresos, asistencia — todo en un dashboard que se actualiza al instante.</p>
-        </AnimatedCard>
-        <AnimatedCard client:visible className="org-card" delay={0.2} glowColor="var(--coral)">
-          <h3>📱 Control de acceso QR</h3>
-          <p>Escanea QR en puerta, controla aforo en tiempo real. Rápido y seguro.</p>
-        </AnimatedCard>
-      </div>
-      <div class="section-cta" data-aos="fade-up">
-        <a href="/register" class="btn-primary">Empezar a vender entradas →</a>
-      </div>
-    </div>
-  </section>
-
-  <hr class="gradient-separator" />
-
-  <!-- PRICING -->
-  <section id="planes" class="section--pricing">
-    <div class="container">
-      <div class="pricing-hero-badge" data-aos="fade-up">0% COMISIÓN POR TICKET — SIEMPRE</div>
-      <h2 class="section-title" data-aos="fade-up">Planes para <span class="gradient-text">organizadores</span></h2>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Sin comisiones ocultas. El dinero de tus ventas va 100% a tu cuenta.</p>
-      <div class="pricing-grid pricing-grid--3col">
-        <!-- GRATIS -->
-        <div class="pricing-card island" data-aos="fade-up" data-aos-delay="0">
-          <div class="pricing-badge">Gratis</div>
-          <div class="pricing-price">
-            <span class="pricing-amount">S/ 0</span>
-          </div>
-          <p class="pricing-tagline pricing-tagline--lime">Primeros 10 eventos</p>
-          <p class="pricing-desc">Tus primeros 10 eventos son gratis. Sin costo, sin comisión, nada.</p>
-          <div class="pricing-commission-badge"><span class="commission-zero">0%</span> comisión</div>
-          <div class="pricing-divider"></div>
-          <ul class="pricing-features">
-            <li><span class="pricing-check">✓</span> 10 eventos sin costo</li>
-            <li><span class="pricing-check">✓</span> 0% comisión por ticket</li>
-            <li><span class="pricing-check">✓</span> QR anti-fraude</li>
-            <li><span class="pricing-check">✓</span> Página pública del evento</li>
-            <li><span class="pricing-check">✓</span> Dashboard completo</li>
-            <li><span class="pricing-check">✓</span> Soporte por chat</li>
-          </ul>
-          <a href="/register" class="btn-secondary pricing-cta">Comenzar gratis</a>
-        </div>
-        <!-- POR EVENTO -->
-        <div class="pricing-card island" data-aos="fade-up" data-aos-delay="100">
-          <div class="pricing-badge pricing-badge--coral">Por Evento</div>
-          <div class="pricing-price">
-            <span class="pricing-amount">Desde S/ 300</span>
-          </div>
-          <p class="pricing-tagline pricing-tagline--coral">Pago único por evento</p>
-          <p class="pricing-desc">Tarifa fija según la capacidad de tickets. Sin sorpresas.</p>
-          <div class="pricing-commission-badge"><span class="commission-zero">0%</span> comisión</div>
-          <div class="pricing-divider"></div>
-          <div class="pricing-tiers">
-            <div class="pricing-tier-row"><span class="tier-label">0–100 tickets</span><span class="tier-value">S/ 300</span></div>
-            <div class="pricing-tier-row"><span class="tier-label">101–1,000 tickets</span><span class="tier-value">S/ 500</span></div>
-            <div class="pricing-tier-row"><span class="tier-label">1,001+ tickets</span><span class="tier-value">S/ 1,000</span></div>
-          </div>
-          <ul class="pricing-features">
-            <li><span class="pricing-check pricing-check--coral">✓</span> 0% comisión por ticket</li>
-            <li><span class="pricing-check pricing-check--coral">✓</span> Todas las features</li>
-            <li><span class="pricing-check pricing-check--coral">✓</span> Analytics en tiempo real</li>
-            <li><span class="pricing-check pricing-check--coral">✓</span> Control de acceso QR</li>
-          </ul>
-          <a href="/register" class="btn-secondary pricing-cta">Elegir este plan</a>
-        </div>
-        <!-- ILIMITADO -->
-        <div class="pricing-card pricing-card--featured island" data-aos="fade-up" data-aos-delay="200">
-          <div class="pricing-popular">⭐ Recomendado</div>
-          <div class="pricing-badge pricing-badge--pro">Ilimitado</div>
-          <div class="pricing-price">
-            <span class="pricing-amount">S/ 799</span>
-            <span class="pricing-period">/mes</span>
-          </div>
-          <p class="pricing-tagline">Eventos ilimitados</p>
-          <p class="pricing-desc">Sin pago por evento. Para organizadores que hacen múltiples eventos al mes.</p>
-          <div class="pricing-commission-badge"><span class="commission-zero">0%</span> comisión</div>
-          <div class="pricing-divider"></div>
-          <ul class="pricing-features">
-            <li><span class="pricing-check pricing-check--pro">✓</span> Eventos ilimitados</li>
-            <li><span class="pricing-check pricing-check--pro">✓</span> 0% comisión por ticket</li>
-            <li><span class="pricing-check pricing-check--pro">✓</span> Sin pago por evento</li>
-            <li><span class="pricing-check pricing-check--pro">✓</span> Analytics avanzados</li>
-            <li><span class="pricing-check pricing-check--pro">✓</span> Soporte prioritario</li>
-            <li><span class="pricing-check pricing-check--pro">✓</span> API access</li>
-            <li><span class="pricing-check pricing-check--pro">✓</span> Widget personalizable</li>
-          </ul>
-          <a href="/register" class="btn-primary pricing-cta">Comenzar con Ilimitado →</a>
-        </div>
-      </div>
-
-      <!-- Payment Methods -->
-      <div class="payment-methods" data-aos="fade-up" data-aos-delay="200">
-        <p class="payment-methods__title">Métodos de pago aceptados</p>
-        <div class="payment-methods__grid">
-          <span class="payment-pill">Yape</span>
-          <span class="payment-pill">Plin</span>
-          <span class="payment-pill">MercadoPago</span>
-          <span class="payment-pill">Visa / Mastercard</span>
-        </div>
-        <p class="payment-methods__note">Pagos seguros. El dinero va directo a la cuenta del organizador.</p>
-      </div>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100" style="margin:0 auto 32px;">Publica tu evento y vende entradas sin comisiones. Dashboard completo, analytics en tiempo real y control de acceso QR.</p>
+      <a href="https://lajarana-org.luminari.agency" class="btn-primary" data-aos="fade-up" data-aos-delay="200">Crear mi evento →</a>
     </div>
   </section>
 
@@ -226,11 +118,9 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
   <div class="marquee-wrap marquee-wrap--reverse">
     <div class="marquee-track marquee-track--reverse">
       <span>🎫 Entradas digitales</span><span>📱 QR Scanner</span><span>💳 Pagos instantáneos</span>
-      <span>📊 Analytics</span><span>🔒 Anti-fraude</span><span>🎨 Personalizable</span>
-      <span>⚡ Tiempo real</span><span>🌐 Widget embed</span>
+      <span>🔒 Anti-fraude</span><span>⚡ Tiempo real</span>
       <span>🎫 Entradas digitales</span><span>📱 QR Scanner</span><span>💳 Pagos instantáneos</span>
-      <span>📊 Analytics</span><span>🔒 Anti-fraude</span><span>🎨 Personalizable</span>
-      <span>⚡ Tiempo real</span><span>🌐 Widget embed</span>
+      <span>🔒 Anti-fraude</span><span>⚡ Tiempo real</span>
     </div>
   </div>
 
@@ -239,25 +129,24 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     <div class="container footer-inner">
       <div class="footer-brand">
         <div class="logo">🎉 LaJarana</div>
-        <p>Tickets digitales para eventos en Perú.</p>
+        <p>Encuentra eventos increíbles en Perú.</p>
       </div>
       <div class="footer-links">
         <div>
-          <h4>Plataforma</h4>
+          <h4>Explorar</h4>
           <a href="/eventos">Eventos</a>
           <a href="#como-funciona">Cómo funciona</a>
-          <a href="/register">Para organizadores</a>
         </div>
         <div>
-          <h4>Cuenta</h4>
+          <h4>Mi Cuenta</h4>
           <a href="/login">Iniciar sesión</a>
           <a href="/register">Registrarse</a>
-          <a href="/dashboard">Dashboard</a>
+          <a href="/mi-cuenta">Mis entradas</a>
         </div>
         <div>
-          <h4>Social</h4>
-          <a href="#">Instagram</a>
-          <a href="#">TikTok</a>
+          <h4>Organizadores</h4>
+          <a href="https://lajarana-org.luminari.agency">Crear mi evento</a>
+          <a href="https://lajarana-org.luminari.agency/register">Registrarse como organizador</a>
         </div>
       </div>
       <div class="footer-bottom">
@@ -370,143 +259,9 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
 
   /* FEATURED EVENTS */
   .section--events { overflow: hidden; }
-  :global(.featured-events-grid), :global(.events-page-grid) {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 24px;
-  }
-  :global(.event-card) {
-    text-decoration: none;
-    color: var(--white);
-    overflow: hidden;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-  :global(.event-card:hover) {
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-float-hover);
-  }
-  :global(.event-card-cover) {
-    position: relative;
-    height: 200px;
-    overflow: hidden;
-    background: rgba(139,92,246,0.1);
-  }
-  :global(.event-card-cover img) {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.4s;
-  }
-  :global(.event-card:hover .event-card-cover img) {
-    transform: scale(1.05);
-  }
-  :global(.event-card-placeholder) {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(255,107,107,0.15));
-  }
-  :global(.event-card-date) {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(10,10,10,0.85);
-    backdrop-filter: blur(8px);
-    border-radius: 12px;
-    padding: 8px 12px;
-    text-align: center;
-    line-height: 1.2;
-    min-width: 52px;
-  }
-  :global(.event-card-date-day) {
-    display: block;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--white);
-  }
-  :global(.event-card-date-month) {
-    display: block;
-    font-size: 0.65rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--violet);
-  }
-  :global(.event-card-body) {
-    padding: 20px;
-  }
-  :global(.event-card-title) {
-    font-size: 1.15rem;
-    font-weight: 600;
-    margin-bottom: 8px;
-    line-height: 1.3;
-  }
-  :global(.event-card-meta) {
-    color: var(--white-60);
-    font-size: 0.85rem;
-    margin-bottom: 4px;
-  }
-  :global(.event-card-price) {
-    color: var(--lime);
-    font-weight: 700;
-    font-size: 1rem;
-    margin-top: 12px;
-  }
-  :global(.featured-empty) {
-    text-align: center;
-    padding: 80px 24px;
-    background: var(--bg-card);
-    border-radius: var(--radius);
-    border: 1px solid var(--white-06);
-  }
-  :global(.featured-empty-icon) {
-    font-size: 3rem;
-    margin-bottom: 16px;
-  }
-  :global(.featured-empty h3) {
-    font-size: 1.4rem;
-    margin-bottom: 8px;
-  }
-  :global(.featured-empty p) {
-    color: var(--white-60);
-    max-width: 400px;
-    margin: 0 auto;
-  }
   .section-cta {
     text-align: center;
     margin-top: 48px;
-  }
-
-  /* SKELETON */
-  :global(.event-card-skeleton) {
-    overflow: hidden;
-  }
-  :global(.skeleton-cover) {
-    height: 200px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
-    background-size: 200% 100%;
-    animation: skeleton-shimmer 1.5s infinite;
-  }
-  :global(.skeleton-body) {
-    padding: 20px;
-  }
-  :global(.skeleton-line) {
-    height: 14px;
-    border-radius: 7px;
-    margin-bottom: 12px;
-    background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
-    background-size: 200% 100%;
-    animation: skeleton-shimmer 1.5s infinite;
-  }
-  :global(.skeleton-line--short) {
-    width: 60%;
-  }
-  @keyframes skeleton-shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
   }
 
   /* STEPS */
@@ -538,189 +293,8 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
   :global(.feature-card h3) { font-size: 1.2rem; margin-bottom: 10px; }
   :global(.feature-card p) { color: var(--white-60); font-size: 0.95rem; }
 
-  /* ORGANIZERS */
-  .org-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-  }
-  :global(.org-card) { padding: 36px 28px; }
-  :global(.org-card h3) { font-size: 1.2rem; margin-bottom: 12px; }
-  :global(.org-card p) { color: var(--white-60); font-size: 0.95rem; }
-
-  /* PRICING */
-  .pricing-hero-badge {
-    display: inline-block;
-    padding: 10px 28px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: var(--white);
-    background: linear-gradient(135deg, var(--violet), var(--coral));
-    border-radius: 50px;
-    margin-bottom: 24px;
-  }
-  .pricing-grid--3col {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1100px;
-    margin: 0 auto;
-    align-items: start;
-  }
-  .pricing-card {
-    padding: 40px 32px;
-    text-align: left;
-    position: relative;
-  }
-  .pricing-card--featured {
-    border: 1px solid rgba(139,92,246,0.3);
-    background: rgba(139,92,246,0.06);
-  }
-  .pricing-card--featured::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: var(--radius);
-    padding: 1px;
-    background: linear-gradient(135deg, var(--violet), var(--coral));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    animation: border-glow 4s ease-in-out infinite alternate;
-  }
-  @keyframes border-glow {
-    0% { opacity: 0.3; }
-    100% { opacity: 0.8; }
-  }
-  .pricing-popular {
-    position: absolute;
-    top: -12px;
-    left: 32px;
-    background: var(--violet);
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 700;
-    padding: 5px 14px;
-    border-radius: 50px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-  }
-  .pricing-badge {
-    display: inline-block;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--white-60);
-    margin-bottom: 12px;
-  }
-  .pricing-badge--pro { color: var(--violet); }
-  .pricing-badge--coral { color: var(--coral); }
-  .pricing-price { margin-bottom: 4px; }
-  .pricing-amount {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: var(--white);
-  }
-  .pricing-period {
-    font-size: 0.9rem;
-    color: var(--white-60);
-    font-weight: 400;
-  }
-  .pricing-tagline {
-    font-size: 0.85rem;
-    color: var(--violet);
-    font-weight: 600;
-    margin-bottom: 12px;
-  }
-  .pricing-tagline--lime { color: var(--lime); }
-  .pricing-tagline--coral { color: var(--coral); }
-  .pricing-commission-badge {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 6px;
-    padding: 6px 16px;
-    background: rgba(163,230,53,0.1);
-    border: 1px solid rgba(163,230,53,0.2);
-    border-radius: 50px;
-    font-size: 0.85rem;
-    color: var(--lime);
-    font-weight: 600;
-    margin-bottom: 20px;
-  }
-  .commission-zero {
-    font-size: 1.4rem;
-    font-weight: 800;
-    color: var(--lime);
-  }
-  .pricing-desc {
-    color: var(--white-60);
-    font-size: 0.85rem;
-    line-height: 1.6;
-    margin-bottom: 16px;
-  }
-  .pricing-divider {
-    height: 1px;
-    background: rgba(255,255,255,0.08);
-    margin-bottom: 20px;
-  }
-  .pricing-tiers {
-    margin-bottom: 20px;
-  }
-  .pricing-tier-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 0.85rem;
-  }
-  .pricing-tier-row:nth-child(odd) {
-    background: rgba(255,255,255,0.03);
-  }
-  .tier-label { color: var(--white-60); }
-  .tier-value { color: var(--white); font-weight: 700; }
-  .pricing-features {
-    list-style: none;
-    margin-bottom: 28px;
-  }
-  .pricing-features li {
-    padding: 6px 0;
-    font-size: 0.88rem;
-    color: var(--white-80);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .pricing-check {
-    color: var(--lime);
-    font-weight: 700;
-    font-size: 0.8rem;
-    flex-shrink: 0;
-  }
-  .pricing-check--pro { color: var(--violet); }
-  .pricing-check--coral { color: var(--coral); }
-  .pricing-cta { width: 100%; justify-content: center; }
-
-  /* Payment Methods */
-  .payment-methods { text-align: center; margin-top: 56px; }
-  .payment-methods__title { font-size: 0.75rem; color: var(--white-60); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 600; margin-bottom: 20px; }
-  .payment-methods__grid { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-  .payment-pill {
-    padding: 8px 16px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--white-60);
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 50px;
-  }
-  .payment-methods__note { font-size: 0.78rem; color: var(--white-60); margin-top: 12px; }
-
-  @media (max-width: 768px) {
-    .pricing-grid--3col { grid-template-columns: 1fr; max-width: 400px; }
-  }
+  /* ORG CTA */
+  .section--org-cta { padding: 80px 0; }
 
   /* REVERSE MARQUEE */
   .marquee-wrap--reverse {
@@ -774,8 +348,5 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     .hero { padding: 120px 0 80px; }
     .footer-inner { grid-template-columns: 1fr; }
     .footer-links { flex-wrap: wrap; gap: 32px; }
-    :global(.featured-events-grid), :global(.events-page-grid) {
-      grid-template-columns: 1fr;
-    }
   }
 </style>

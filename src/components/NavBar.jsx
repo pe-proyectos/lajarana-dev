@@ -30,7 +30,8 @@ export default function NavBar({ current = 'home' }) {
           <a href="/eventos" className={current === 'eventos' ? 'nav-active' : ''}>Eventos</a>
           {loggedIn ? (
             <>
-              <a href="/dashboard" className="btn-primary" style={{ padding: '10px 24px', fontSize: '0.9rem' }}>Dashboard</a>
+              <a href="/mi-cuenta" className={current === 'mi-cuenta' ? 'nav-active' : ''}>Mi Cuenta</a>
+              <button className="btn-secondary" style={{ padding: '10px 24px', fontSize: '0.9rem' }} onClick={logout}>Salir</button>
             </>
           ) : (
             <>

@@ -19,18 +19,18 @@ export default function HeroAnimated() {
       animate="show"
     >
       <motion.div className="hero-badge" variants={fadeUp}>
-        🎫 Plataforma de tickets digitales
+        🎫 Encuentra eventos increíbles
       </motion.div>
 
       <motion.h1 variants={fadeUp}>
-        <span className="gradient-text">Entradas para</span>
+        <span className="gradient-text">Encuentra eventos</span>
         <br />
-        tus eventos favoritos.
+        increíbles cerca de ti.
       </motion.h1>
 
       <motion.p className="hero-sub" variants={fadeUp}>
-        Encuentra los mejores eventos, compra tus entradas en segundos y
-        muestra tu QR en la puerta. Así de simple.
+        Compra entradas para los mejores conciertos, fiestas, festivales y más.
+        Recibe tu QR al instante y entra sin colas.
       </motion.p>
 
       <motion.div className="hero-actions" variants={fadeUp}>
@@ -38,7 +38,7 @@ export default function HeroAnimated() {
           Explorar eventos →
         </a>
         <a href="/register" className="btn-secondary">
-          Soy organizador
+          Crear mi cuenta
         </a>
       </motion.div>
 

@@ -1,6 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
-import EventForm from '../../../components/EventForm.jsx';
+import EventWizard from '../../../components/EventWizard.jsx';
 import '../../../styles/dashboard.css';
 ---
 <Layout title="Crear Evento — LaJarana">
@@ -8,6 +8,6 @@ import '../../../styles/dashboard.css';
     <header class="dash-header">
       <a href="/dashboard" class="logo">🎉 LaJarana</a>
     </header>
-    <EventForm client:load />
+    <EventWizard client:load />
   </div>
 </Layout>

@@ -23,6 +23,7 @@ export default function Dashboard() {
 
   const totalEvents = events.length;
   const published = events.filter(e => e.status === 'PUBLISHED').length;
+  const drafts = totalEvents - published;
 
   return (
     <div className="dash-layout">
@@ -34,20 +35,23 @@ export default function Dashboard() {
         </div>
       </header>
       <div className="dash-content">
-        <h1 className="dash-title">Dashboard</h1>
+        <h1 className="dash-title gradient-text">Dashboard</h1>
         <p className="dash-subtitle">Gestiona tus eventos y entradas</p>
 
         <div className="stats-grid">
           <div className="stat-card">
+            <span className="stat-icon">📊</span>
             <div className="stat-value gradient-text">{totalEvents}</div>
             <div className="stat-label">Eventos totales</div>
           </div>
           <div className="stat-card">
+            <span className="stat-icon">✅</span>
             <div className="stat-value" style={{ color: 'var(--lime)' }}>{published}</div>
             <div className="stat-label">Publicados</div>
           </div>
           <div className="stat-card">
-            <div className="stat-value" style={{ color: 'var(--coral)' }}>{totalEvents - published}</div>
+            <span className="stat-icon">📝</span>
+            <div className="stat-value" style={{ color: 'var(--coral)' }}>{drafts}</div>
             <div className="stat-label">Borradores</div>
           </div>
         </div>
@@ -58,9 +62,11 @@ export default function Dashboard() {
         </div>
 
         {events.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--white-60)' }}>
-            <p>No tienes eventos aún.</p>
-            <a href="/dashboard/events/new" className="btn-primary" style={{ marginTop: 16, display: 'inline-flex' }}>Crear mi primer evento</a>
+          <div style={{ textAlign: 'center', padding: '80px 0', color: 'var(--white-60)' }}>
+            <div style={{ fontSize: '3rem', marginBottom: 16 }}>🎉</div>
+            <p style={{ fontSize: '1.1rem', marginBottom: 8 }}>No tienes eventos aún</p>
+            <p style={{ fontSize: '0.9rem', marginBottom: 24, opacity: 0.7 }}>Crea tu primer evento y empieza a vender entradas</p>
+            <a href="/dashboard/events/new" className="btn-primary" style={{ display: 'inline-flex' }}>Crear mi primer evento</a>
           </div>
         ) : (
           events.map(evt => (
@@ -68,13 +74,16 @@ export default function Dashboard() {
               <div className="event-row-info">
                 <h3>{evt.title}</h3>
                 <div className="event-row-meta">
-                  {evt.venue && `${evt.venue} · `}
-                  {evt.city && `${evt.city} · `}
-                  {evt.startDate && new Date(evt.startDate).toLocaleDateString('es-PE')}
+                  {evt.startDate && (
+                    <span className="event-meta-tag">📅 {new Date(evt.startDate).toLocaleDateString('es-PE', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                  )}
+                  {evt.venue && <span className="event-meta-tag">🏛️ {evt.venue}</span>}
+                  {evt.city && <span className="event-meta-tag">📍 {evt.city}</span>}
+                  {evt.maxCapacity && <span className="event-meta-tag">👥 {evt.maxCapacity}</span>}
                 </div>
               </div>
               <span className={`badge badge-${(evt.status || 'draft').toLowerCase()}`}>
-                {evt.status || 'DRAFT'}
+                {evt.status === 'PUBLISHED' ? '✅ Publicado' : evt.status === 'DRAFT' ? '📝 Borrador' : evt.status || 'DRAFT'}
               </span>
             </a>
           ))

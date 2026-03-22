@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PublicEvent from '../../components/PublicEvent.jsx';
+import '../../styles/dashboard.css';
+const { slug } = Astro.params;
+---
+<Layout title="Evento — LaJarana">
+  <div class="dash-layout">
+    <nav class="dash-header">
+      <a href="/" class="logo">🎉 LaJarana</a>
+      <a href="/login" class="btn-ghost" style="font-size:0.85rem;">Organizar eventos →</a>
+    </nav>
+    <PublicEvent slug={slug} client:load />
+  </div>
+</Layout>

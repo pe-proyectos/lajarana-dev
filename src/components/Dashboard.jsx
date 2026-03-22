@@ -1,0 +1,85 @@
+import { useState, useEffect } from 'react';
+import { api, getToken, clearToken } from '../lib/api';
+
+export default function Dashboard() {
+  const [user, setUser] = useState(null);
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!getToken()) { window.location.href = '/login'; return; }
+    Promise.all([api.me(), api.getEvents()])
+      .then(([u, evts]) => {
+        setUser(u.user || u);
+        setEvents(Array.isArray(evts) ? evts : evts.events || evts.data || []);
+        setLoading(false);
+      })
+      .catch(() => { clearToken(); window.location.href = '/login'; });
+  }, []);
+
+  function logout() { clearToken(); window.location.href = '/login'; }
+
+  if (loading) return <div className="dash-layout"><div className="loading">Cargando...</div></div>;
+
+  const totalEvents = events.length;
+  const published = events.filter(e => e.status === 'PUBLISHED').length;
+
+  return (
+    <div className="dash-layout">
+      <header className="dash-header">
+        <a href="/dashboard" className="logo">🎉 LaJarana</a>
+        <div className="dash-header-right">
+          <span className="dash-user-name">{user?.name || user?.email}</span>
+          <button className="dash-logout" onClick={logout}>Salir</button>
+        </div>
+      </header>
+      <div className="dash-content">
+        <h1 className="dash-title">Dashboard</h1>
+        <p className="dash-subtitle">Gestiona tus eventos y entradas</p>
+
+        <div className="stats-grid">
+          <div className="stat-card">
+            <div className="stat-value gradient-text">{totalEvents}</div>
+            <div className="stat-label">Eventos totales</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-value" style={{ color: 'var(--lime)' }}>{published}</div>
+            <div className="stat-label">Publicados</div>
+          </div>
+          <div className="stat-card">
+            <div className="stat-value" style={{ color: 'var(--coral)' }}>{totalEvents - published}</div>
+            <div className="stat-label">Borradores</div>
+          </div>
+        </div>
+
+        <div className="events-header">
+          <h2>Mis Eventos</h2>
+          <a href="/dashboard/events/new" className="btn-primary btn-sm">+ Crear Evento</a>
+        </div>
+
+        {events.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '60px 0', color: 'var(--white-60)' }}>
+            <p>No tienes eventos aún.</p>
+            <a href="/dashboard/events/new" className="btn-primary" style={{ marginTop: 16, display: 'inline-flex' }}>Crear mi primer evento</a>
+          </div>
+        ) : (
+          events.map(evt => (
+            <a key={evt.id} href={`/dashboard/events/${evt.id}`} className="event-row">
+              <div className="event-row-info">
+                <h3>{evt.title}</h3>
+                <div className="event-row-meta">
+                  {evt.venue && `${evt.venue} · `}
+                  {evt.city && `${evt.city} · `}
+                  {evt.startDate && new Date(evt.startDate).toLocaleDateString('es-PE')}
+                </div>
+              </div>
+              <span className={`badge badge-${(evt.status || 'draft').toLowerCase()}`}>
+                {evt.status || 'DRAFT'}
+              </span>
+            </a>
+          ))
+        )}
+      </div>
+    </div>
+  );
+}

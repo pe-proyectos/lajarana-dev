@@ -48,4 +48,9 @@ export const api = {
   // Users
   getProfile: () => request('/users/me'),
   updateProfile: (body) => request('/users/me', { method: 'PATCH', body: JSON.stringify(body) }),
+  // Payments
+  createPreference: (body) => request('/payments/create-preference', { method: 'POST', body: JSON.stringify(body) }),
+  getPaymentStatus: (orderId) => request(`/payments/status/${orderId}`),
+  // Orders
+  getMyOrders: () => request('/orders/my'),
 };

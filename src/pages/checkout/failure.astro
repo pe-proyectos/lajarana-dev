@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar.jsx';
+import CheckoutResult from '../../components/CheckoutResult.jsx';
+import '../../styles/dashboard.css';
+---
+<Layout title="Pago fallido — LaJarana" description="Hubo un problema con tu pago.">
+  <NavBar client:load />
+  <CheckoutResult status="failure" client:load />
+</Layout>

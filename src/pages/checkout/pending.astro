@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar.jsx';
+import CheckoutResult from '../../components/CheckoutResult.jsx';
+import '../../styles/dashboard.css';
+---
+<Layout title="Pago pendiente — LaJarana" description="Tu pago está siendo procesado.">
+  <NavBar client:load />
+  <CheckoutResult status="pending" client:load />
+</Layout>

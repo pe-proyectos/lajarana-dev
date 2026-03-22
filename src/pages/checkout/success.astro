@@ -1,0 +1,10 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NavBar from '../../components/NavBar.jsx';
+import CheckoutResult from '../../components/CheckoutResult.jsx';
+import '../../styles/dashboard.css';
+---
+<Layout title="¡Compra exitosa! — LaJarana" description="Tu compra fue procesada exitosamente.">
+  <NavBar client:load />
+  <CheckoutResult status="success" client:load />
+</Layout>

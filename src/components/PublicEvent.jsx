@@ -8,6 +8,8 @@ export default function PublicEvent({ slug }) {
   const [error, setError] = useState('');
   const [quantities, setQuantities] = useState({});
   const [showBuyModal, setShowBuyModal] = useState(false);
+  const [buying, setBuying] = useState(false);
+  const [buyError, setBuyError] = useState('');
 
   useEffect(() => {
     api.getPublicEvent(slug)
@@ -34,6 +36,34 @@ export default function PublicEvent({ slug }) {
 
   function totalTickets() {
     return Object.values(quantities).reduce((a, b) => a + b, 0);
+  }
+
+  async function handleBuy() {
+    setBuying(true);
+    setBuyError('');
+    const token = localStorage.getItem('jarana_token');
+    if (!token) {
+      window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+      return;
+    }
+    try {
+      const items = tickets
+        .filter(t => (quantities[t.id] || 0) > 0)
+        .map(t => ({ ticketTypeId: t.id, quantity: quantities[t.id] }));
+      const res = await api.createPreference({ eventId: event.id, items });
+      if (res.free) {
+        window.location.href = `/checkout/success?order=${res.orderId}`;
+        return;
+      }
+      if (res.initPoint) {
+        window.location.href = res.initPoint;
+      } else {
+        setBuyError('Error al crear el pago');
+      }
+    } catch (err) {
+      setBuyError(err.message || 'Error al procesar la compra');
+    }
+    setBuying(false);
   }
 
   function handleShare() {
@@ -215,13 +245,26 @@ export default function PublicEvent({ slug }) {
       {showBuyModal && (
         <div className="modal-overlay" onClick={() => setShowBuyModal(false)}>
           <div className="modal-card" onClick={e => e.stopPropagation()}>
-            <h2 style={{ marginBottom: 8 }}>🚧 Próximamente</h2>
-            <p style={{ color: 'var(--white-60)', marginBottom: 24 }}>
-              La compra de entradas estará disponible muy pronto. ¡Estamos terminando la pasarela de pago!
-            </p>
-            <button className="btn-primary" onClick={() => setShowBuyModal(false)} style={{ width: '100%', justifyContent: 'center' }}>
-              Entendido
-            </button>
+            <h2 style={{ marginBottom: 8 }}>🎟️ Confirmar compra</h2>
+            <div style={{ margin: '16px 0' }}>
+              {tickets.filter(t => (quantities[t.id] || 0) > 0).map(t => (
+                <div key={t.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid var(--white-10)' }}>
+                  <span>{quantities[t.id]}x {t.name}</span>
+                  <span>S/ {(Number(t.price) * quantities[t.id]).toFixed(2)}</span>
+                </div>
+              ))}
+              <div style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 0', fontWeight: 700, fontSize: '1.1rem' }}>
+                <span>Total</span>
+                <span className="gradient-text">S/ {totalAmount().toFixed(2)}</span>
+              </div>
+            </div>
+            {buyError && <div className="error-msg" style={{ marginBottom: 12 }}>{buyError}</div>}
+            <div style={{ display: 'flex', gap: 12, justifyContent: 'center' }}>
+              <button className="btn-secondary" onClick={() => setShowBuyModal(false)} disabled={buying}>Cancelar</button>
+              <button className="btn-primary" onClick={handleBuy} disabled={buying} style={{ justifyContent: 'center' }}>
+                {buying ? 'Procesando...' : totalAmount() === 0 ? 'Obtener entradas gratis' : 'Pagar con MercadoPago'}
+              </button>
+            </div>
           </div>
         </div>
       )}

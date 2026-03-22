@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.jsx';
+import EventsGrid from '../components/EventsGrid.jsx';
+---
+
+<Layout title="Eventos — LaJarana" description="Encuentra los mejores eventos y compra tus entradas digitales.">
+  <NavBar current="eventos" client:load />
+
+  <section class="eventos-page">
+    <div class="container">
+      <h1 class="section-title" data-aos="fade-up">Todos los <span class="gradient-text">eventos</span></h1>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Encuentra tu próximo evento favorito y consigue tus entradas.</p>
+      <EventsGrid client:load />
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container" style="text-align:center;">
+      <hr class="gradient-separator" style="margin-bottom:24px;" />
+      <p style="color:var(--white-60);font-size:0.85rem;">© 2026 LaJarana. Hecho con 💜 por <a href="https://luminari.agency" style="color:var(--violet);text-decoration:none;">Luminari Agency</a></p>
+    </div>
+  </footer>
+</Layout>
+
+<style>
+  .eventos-page {
+    padding: 140px 0 80px;
+    min-height: 80vh;
+  }
+  :global(.events-search-bar) {
+    margin-bottom: 32px;
+  }
+  :global(.events-search-input) {
+    max-width: 500px;
+    border-radius: 50px !important;
+    padding: 14px 24px !important;
+  }
+  .footer {
+    padding: 32px 0;
+  }
+</style>

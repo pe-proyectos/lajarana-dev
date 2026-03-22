@@ -1,22 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import NavBar from '../components/NavBar.jsx';
 import HeroAnimated from '../components/HeroAnimated.jsx';
+import FeaturedEvents from '../components/FeaturedEvents.jsx';
 import AnimatedCard from '../components/AnimatedCard.jsx';
 ---
 
-<Layout title="LaJarana — Tus entradas, sin drama">
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="container nav-inner">
-      <a href="/" class="logo">🎉 LaJarana</a>
-      <div class="nav-links">
-        <a href="#como-funciona">Cómo funciona</a>
-        <a href="#features">Features</a>
-        <a href="#precios">Precios</a>
-        <a href="#waitlist" class="btn-primary" style="padding:10px 24px;font-size:0.9rem;">Únete</a>
-      </div>
-    </div>
-  </nav>
+<Layout title="LaJarana — Entradas para tus eventos favoritos" description="Plataforma de tickets digitales para eventos en Perú. Compra entradas, muestra tu QR y disfruta." ogImage="/og-image.jpg">
+  <NavBar current="home" client:load />
 
   <!-- HERO -->
   <section class="hero">
@@ -30,7 +21,6 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
       <span>★ Teatro</span><span>★ Electrónica</span><span>★ Cumbia</span>
       <span>★ Reggaetón</span><span>★ Eventos culturales</span><span>★ Noches de bar</span>
       <span>★ After party</span><span>★ Open air</span><span>★ Club nights</span>
-      <!-- duplicate for seamless loop -->
       <span>★ Festivales</span><span>★ Conciertos</span><span>★ Fiestas</span>
       <span>★ Teatro</span><span>★ Electrónica</span><span>★ Cumbia</span>
       <span>★ Reggaetón</span><span>★ Eventos culturales</span><span>★ Noches de bar</span>
@@ -40,27 +30,41 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
 
   <hr class="gradient-separator" />
 
+  <!-- FEATURED EVENTS -->
+  <section id="eventos" class="section--events">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Eventos <span class="gradient-text">destacados</span></h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Descubre los próximos eventos y consigue tus entradas.</p>
+      <FeaturedEvents client:load />
+      <div class="section-cta" data-aos="fade-up">
+        <a href="/eventos" class="btn-secondary">Ver todos los eventos →</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="gradient-separator" />
+
   <!-- HOW IT WORKS -->
   <section id="como-funciona" class="section--steps">
     <div class="stripe-decoration" style="top:-40px;right:5%;"></div>
     <div class="container">
-      <h2 class="section-title" data-aos="fade-up">Así de <span class="gradient-text">fácil</span></h2>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Tres pasos y ya estás vendiendo entradas.</p>
+      <h2 class="section-title" data-aos="fade-up">Así <span class="gradient-text">funciona</span></h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Tres pasos y ya tienes tu entrada.</p>
       <div class="steps-grid">
         <AnimatedCard client:visible className="step-card" delay={0} glowColor="var(--violet)">
           <div class="step-number step-number--violet">1</div>
-          <h3>Crea tu evento</h3>
-          <p>Configura fechas, tipos de entrada, precios y personaliza tu página del evento en minutos.</p>
+          <h3>Encuentra tu evento</h3>
+          <p>Explora los eventos disponibles y elige el que más te guste. Festivales, conciertos, fiestas y más.</p>
         </AnimatedCard>
         <AnimatedCard client:visible className="step-card" delay={0.1} glowColor="var(--lime)">
           <div class="step-number step-number--lime">2</div>
-          <h3>Vende entradas</h3>
-          <p>Comparte tu link o embebe el widget en tu web. Acepta pagos con Yape, Plin o MercadoPago.</p>
+          <h3>Compra tu entrada</h3>
+          <p>Selecciona el tipo de entrada, paga con Yape, Plin o MercadoPago y recibe tu ticket al instante.</p>
         </AnimatedCard>
         <AnimatedCard client:visible className="step-card" delay={0.2} glowColor="var(--coral)">
           <div class="step-number step-number--coral">3</div>
-          <h3>Gestiona asistentes</h3>
-          <p>Escanea QR en puerta, controla aforo en tiempo real y accede a analytics de tu evento.</p>
+          <h3>Muestra tu QR</h3>
+          <p>Llega al evento, muestra tu código QR y entra. Sin papeles, sin colas, sin drama.</p>
         </AnimatedCard>
       </div>
     </div>
@@ -72,8 +76,8 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
   <section id="features" class="section--features">
     <div class="stripe-decoration" style="bottom:0;left:2%;background:repeating-linear-gradient(135deg,var(--coral),var(--coral) 2px,transparent 2px,transparent 12px);"></div>
     <div class="container">
-      <h2 class="section-title" data-aos="fade-up">Todo lo que <span class="gradient-text--vc">necesitas</span></h2>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Herramientas diseñadas para organizadores que no quieren complicarse.</p>
+      <h2 class="section-title" data-aos="fade-up">¿Por qué <span class="gradient-text--vc">LaJarana</span>?</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Entradas digitales seguras y sin complicaciones.</p>
       <div class="features-grid">
         <AnimatedCard client:visible className="feature-card" delay={0} glowColor="var(--violet)">
           <div class="feature-icon">🔒</div>
@@ -82,18 +86,18 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
         </AnimatedCard>
         <AnimatedCard client:visible className="feature-card" delay={0.1} glowColor="var(--coral)">
           <div class="feature-icon">💳</div>
-          <h3>Múltiples pagos</h3>
-          <p>MercadoPago, Yape, Plin y más. Tus asistentes pagan como prefieran.</p>
+          <h3>Paga como quieras</h3>
+          <p>MercadoPago, Yape, Plin y más. Paga desde tu celular en segundos.</p>
         </AnimatedCard>
         <AnimatedCard client:visible className="feature-card" delay={0.2} glowColor="var(--lime)">
-          <div class="feature-icon">📊</div>
-          <h3>Analytics en tiempo real</h3>
-          <p>Ventas, ingresos, asistencia — todo en un dashboard que se actualiza al instante.</p>
+          <div class="feature-icon">⚡</div>
+          <h3>Entrega instantánea</h3>
+          <p>Recibe tu entrada digital al instante. Sin esperas, sin imprimir nada.</p>
         </AnimatedCard>
         <AnimatedCard client:visible className="feature-card" delay={0.3} glowColor="var(--violet)">
-          <div class="feature-icon">🧩</div>
-          <h3>Widget embebible</h3>
-          <p>Agrega la venta de entradas directo en tu web o redes con un simple código embed.</p>
+          <div class="feature-icon">📱</div>
+          <h3>Desde tu celular</h3>
+          <p>Compra, guarda y muestra tu entrada desde tu teléfono. Todo en un solo lugar.</p>
         </AnimatedCard>
       </div>
     </div>
@@ -101,64 +105,28 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
 
   <hr class="gradient-separator" />
 
-  <!-- PRICING -->
-  <section id="precios" class="section--pricing">
-    <div class="container">
-      <h2 class="section-title" data-aos="fade-up">Precios que <span class="gradient-text--vl">hacen sentido</span></h2>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Sin costos ocultos. Elige el modelo que mejor te funcione.</p>
-      <div class="pricing-grid">
-        <div class="island pricing-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="pricing-tag pricing-tag--lime">Popular</div>
-          <h3>Por comisión</h3>
-          <div class="pricing-price">3-5%<span> por entrada</span></div>
-          <p class="pricing-desc">Ideal para organizadores casuales o eventos únicos.</p>
-          <ul class="pricing-list">
-            <li><span class="check check--lime">✓</span> Sin costo fijo mensual</li>
-            <li><span class="check check--lime">✓</span> Pagas solo cuando vendes</li>
-            <li><span class="check check--lime">✓</span> Todas las features incluidas</li>
-            <li><span class="check check--lime">✓</span> Soporte por chat</li>
-          </ul>
-          <a href="#waitlist" class="btn-secondary" style="width:100%;justify-content:center;">Empezar gratis</a>
-        </div>
-        <div class="island pricing-card pricing-featured" data-aos="fade-up" data-aos-delay="200">
-          <div class="pricing-tag pricing-tag--violet">Pro</div>
-          <h3>Suscripción</h3>
-          <div class="pricing-price">S/ 149<span>/mes</span></div>
-          <p class="pricing-desc">Para organizadores frecuentes que hacen varios eventos al mes.</p>
-          <ul class="pricing-list">
-            <li><span class="check check--violet">✓</span> Comisión reducida (1%)</li>
-            <li><span class="check check--violet">✓</span> Eventos ilimitados</li>
-            <li><span class="check check--violet">✓</span> Analytics avanzados</li>
-            <li><span class="check check--violet">✓</span> Soporte prioritario</li>
-            <li><span class="check check--violet">✓</span> API access</li>
-          </ul>
-          <a href="#waitlist" class="btn-primary" style="width:100%;justify-content:center;">Acceso anticipado</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="gradient-separator" />
-
-  <!-- FOR ORGANIZERS -->
+  <!-- FOR ORGANIZERS CTA -->
   <section class="section--organizers">
     <div class="stripe-decoration" style="top:10%;right:0;background:repeating-linear-gradient(-45deg,var(--lime),var(--lime) 2px,transparent 2px,transparent 12px);"></div>
     <div class="container">
-      <h2 class="section-title" data-aos="fade-up">Para <span class="gradient-text">organizadores</span></h2>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Tu evento, tu plata, tu control.</p>
+      <h2 class="section-title" data-aos="fade-up">¿Organizas <span class="gradient-text">eventos</span>?</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">Vende entradas, gestiona asistentes y controla todo desde un solo dashboard.</p>
       <div class="org-grid">
         <AnimatedCard client:visible className="org-card" delay={0} glowColor="var(--lime)">
-          <h3>💰 Split payment directo</h3>
+          <h3>💰 Pagos directos</h3>
           <p>La plata va directo a tu cuenta. Sin intermediarios reteniendo tu dinero por semanas.</p>
         </AnimatedCard>
         <AnimatedCard client:visible className="org-card" delay={0.1} glowColor="var(--violet)">
-          <h3>📱 Dashboard completo</h3>
-          <p>Gestiona todos tus eventos, ve reportes de ventas y controla accesos desde tu celular.</p>
+          <h3>📊 Analytics en tiempo real</h3>
+          <p>Ventas, ingresos, asistencia — todo en un dashboard que se actualiza al instante.</p>
         </AnimatedCard>
         <AnimatedCard client:visible className="org-card" delay={0.2} glowColor="var(--coral)">
-          <h3>🎨 Tu marca, tu estilo</h3>
-          <p>Personaliza la página de tu evento con tu logo y colores. "Powered by LaJarana" discreto.</p>
+          <h3>📱 Control de acceso QR</h3>
+          <p>Escanea QR en puerta, controla aforo en tiempo real. Rápido y seguro.</p>
         </AnimatedCard>
+      </div>
+      <div class="section-cta" data-aos="fade-up">
+        <a href="/register" class="btn-primary">Empezar a vender entradas →</a>
       </div>
     </div>
   </section>
@@ -175,24 +143,6 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     </div>
   </div>
 
-  <hr class="gradient-separator" />
-
-  <!-- WAITLIST CTA -->
-  <section id="waitlist" class="waitlist-section">
-    <div class="container waitlist-container">
-      <div class="waitlist-blob"></div>
-      <div class="island waitlist-card" data-aos="zoom-in">
-        <h2>🎶 Sé de los primeros</h2>
-        <p>Únete a la lista de espera y obtén acceso anticipado + beneficios exclusivos de early adopter.</p>
-        <form class="waitlist-form" onsubmit="event.preventDefault(); this.querySelector('.waitlist-success').style.display='block'; this.querySelector('button').textContent='¡Listo! 🎉';">
-          <input type="email" placeholder="tu@email.com" required />
-          <button type="submit" class="btn-primary">Quiero entrar →</button>
-          <div class="waitlist-success" style="display:none;">¡Te avisaremos cuando estemos listos! 🚀</div>
-        </form>
-      </div>
-    </div>
-  </section>
-
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container footer-inner">
@@ -202,26 +152,26 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
       </div>
       <div class="footer-links">
         <div>
-          <h4>Producto</h4>
+          <h4>Plataforma</h4>
+          <a href="/eventos">Eventos</a>
           <a href="#como-funciona">Cómo funciona</a>
-          <a href="#features">Features</a>
-          <a href="#precios">Precios</a>
+          <a href="/register">Para organizadores</a>
         </div>
         <div>
-          <h4>Legal</h4>
-          <a href="#">Términos</a>
-          <a href="#">Privacidad</a>
+          <h4>Cuenta</h4>
+          <a href="/login">Iniciar sesión</a>
+          <a href="/register">Registrarse</a>
+          <a href="/dashboard">Dashboard</a>
         </div>
         <div>
           <h4>Social</h4>
           <a href="#">Instagram</a>
           <a href="#">TikTok</a>
-          <a href="#">Twitter</a>
         </div>
       </div>
       <div class="footer-bottom">
         <hr class="gradient-separator" style="margin-bottom:24px;" />
-        <p>© 2026 LaJarana. Hecho por <a href="https://luminari.agency" class="luminari-link">Luminari Agency</a></p>
+        <p>© 2026 LaJarana. Hecho con 💜 por <a href="https://luminari.agency" class="luminari-link">Luminari Agency</a></p>
       </div>
     </div>
   </footer>
@@ -229,7 +179,7 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
 
 <style>
   /* NAV */
-  .nav {
+  :global(.nav) {
     position: fixed;
     top: 0;
     left: 0;
@@ -240,29 +190,52 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--white-06);
   }
-  .nav-inner {
+  :global(.nav-inner) {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .logo {
+  :global(.logo) {
     font-size: 1.4rem;
     font-weight: 700;
     text-decoration: none;
     color: var(--white);
   }
-  .nav-links {
+  :global(.nav-links) {
     display: flex;
     align-items: center;
     gap: 32px;
   }
-  .nav-links a {
+  :global(.nav-links a) {
     color: var(--white-60);
     text-decoration: none;
     font-size: 0.95rem;
     transition: color 0.2s;
   }
-  .nav-links a:hover { color: var(--white); }
+  :global(.nav-links a:hover), :global(.nav-links a.nav-active) { color: var(--white); }
+  :global(.nav-mobile-toggle) {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+  }
+  :global(.hamburger) {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 24px;
+  }
+  :global(.hamburger span) {
+    display: block;
+    height: 2px;
+    background: var(--white);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  :global(.hamburger--open span:nth-child(1)) { transform: rotate(45deg) translate(5px, 5px); }
+  :global(.hamburger--open span:nth-child(2)) { opacity: 0; }
+  :global(.hamburger--open span:nth-child(3)) { transform: rotate(-45deg) translate(5px, -5px); }
 
   /* HERO */
   .hero {
@@ -304,40 +277,164 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     flex-wrap: wrap;
   }
 
+  /* FEATURED EVENTS */
+  .section--events { overflow: hidden; }
+  :global(.featured-events-grid), :global(.events-page-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+  :global(.event-card) {
+    text-decoration: none;
+    color: var(--white);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  :global(.event-card:hover) {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-float-hover);
+  }
+  :global(.event-card-cover) {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: rgba(139,92,246,0.1);
+  }
+  :global(.event-card-cover img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s;
+  }
+  :global(.event-card:hover .event-card-cover img) {
+    transform: scale(1.05);
+  }
+  :global(.event-card-placeholder) {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(255,107,107,0.15));
+  }
+  :global(.event-card-date) {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(10,10,10,0.85);
+    backdrop-filter: blur(8px);
+    border-radius: 12px;
+    padding: 8px 12px;
+    text-align: center;
+    line-height: 1.2;
+    min-width: 52px;
+  }
+  :global(.event-card-date-day) {
+    display: block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+  }
+  :global(.event-card-date-month) {
+    display: block;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--violet);
+  }
+  :global(.event-card-body) {
+    padding: 20px;
+  }
+  :global(.event-card-title) {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+  }
+  :global(.event-card-meta) {
+    color: var(--white-60);
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+  }
+  :global(.event-card-price) {
+    color: var(--lime);
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 12px;
+  }
+  :global(.featured-empty) {
+    text-align: center;
+    padding: 80px 24px;
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    border: 1px solid var(--white-06);
+  }
+  :global(.featured-empty-icon) {
+    font-size: 3rem;
+    margin-bottom: 16px;
+  }
+  :global(.featured-empty h3) {
+    font-size: 1.4rem;
+    margin-bottom: 8px;
+  }
+  :global(.featured-empty p) {
+    color: var(--white-60);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  .section-cta {
+    text-align: center;
+    margin-top: 48px;
+  }
+
+  /* SKELETON */
+  :global(.event-card-skeleton) {
+    overflow: hidden;
+  }
+  :global(.skeleton-cover) {
+    height: 200px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+  }
+  :global(.skeleton-body) {
+    padding: 20px;
+  }
+  :global(.skeleton-line) {
+    height: 14px;
+    border-radius: 7px;
+    margin-bottom: 12px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.03) 25%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0.03) 75%);
+    background-size: 200% 100%;
+    animation: skeleton-shimmer 1.5s infinite;
+  }
+  :global(.skeleton-line--short) {
+    width: 60%;
+  }
+  @keyframes skeleton-shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
   /* STEPS */
   .steps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 24px;
   }
-  :global(.step-card) {
-    padding: 40px 32px;
-    text-align: center;
-  }
+  :global(.step-card) { padding: 40px 32px; text-align: center; }
   :global(.step-number) {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: var(--white);
-    position: relative;
+    width: 52px; height: 52px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 1.2rem; margin-bottom: 20px; color: var(--white);
   }
   :global(.step-number--violet) { background: var(--violet); box-shadow: 0 0 20px var(--violet-20); }
   :global(.step-number--lime) { background: var(--lime); color: var(--bg); box-shadow: 0 0 20px var(--lime-20); }
   :global(.step-number--coral) { background: var(--coral); box-shadow: 0 0 20px var(--coral-20); }
-  :global(.step-card h3) {
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-  }
-  :global(.step-card p) {
-    color: var(--white-60);
-    font-size: 0.95rem;
-  }
+  :global(.step-card h3) { font-size: 1.3rem; margin-bottom: 12px; }
+  :global(.step-card p) { color: var(--white-60); font-size: 0.95rem; }
 
   /* FEATURES */
   .features-grid {
@@ -345,103 +442,10 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 24px;
   }
-  :global(.feature-card) {
-    padding: 36px 28px;
-  }
-  :global(.feature-icon) {
-    font-size: 2.5rem;
-    margin-bottom: 16px;
-  }
-  :global(.feature-card h3) {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
-  }
-  :global(.feature-card p) {
-    color: var(--white-60);
-    font-size: 0.95rem;
-  }
-
-  /* PRICING */
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 24px;
-    max-width: 800px;
-  }
-  .pricing-card {
-    padding: 40px 32px;
-  }
-  .pricing-tag {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 8px;
-  }
-  .pricing-tag--lime { color: var(--lime); }
-  .pricing-tag--violet { color: var(--violet); }
-  .pricing-card h3 {
-    font-size: 1.5rem;
-    margin-bottom: 8px;
-  }
-  .pricing-price {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-    background: var(--gradient-main);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .pricing-price span {
-    font-size: 1rem;
-    font-weight: 400;
-    -webkit-text-fill-color: var(--white-60);
-  }
-  .pricing-desc {
-    color: var(--white-60);
-    margin-bottom: 24px;
-    font-size: 0.95rem;
-  }
-  .pricing-list {
-    list-style: none;
-    margin-bottom: 32px;
-  }
-  .pricing-list li {
-    padding: 8px 0;
-    color: var(--white-80);
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .check {
-    font-weight: 700;
-  }
-  .check--lime { color: var(--lime); }
-  .check--violet { color: var(--violet); }
-  .pricing-featured {
-    border: 1px solid var(--violet-40);
-    background: rgba(139,92,246,0.06);
-    position: relative;
-  }
-  .pricing-featured::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: var(--radius);
-    padding: 1px;
-    background: linear-gradient(135deg, var(--violet), var(--coral));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    animation: border-glow 4s ease-in-out infinite alternate;
-  }
-  @keyframes border-glow {
-    0% { opacity: 0.3; }
-    100% { opacity: 0.8; }
-  }
+  :global(.feature-card) { padding: 36px 28px; }
+  :global(.feature-icon) { font-size: 2.5rem; margin-bottom: 16px; }
+  :global(.feature-card h3) { font-size: 1.2rem; margin-bottom: 10px; }
+  :global(.feature-card p) { color: var(--white-60); font-size: 0.95rem; }
 
   /* ORGANIZERS */
   .org-grid {
@@ -449,148 +453,64 @@ import AnimatedCard from '../components/AnimatedCard.jsx';
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 24px;
   }
-  :global(.org-card) {
-    padding: 36px 28px;
-  }
-  :global(.org-card h3) {
-    font-size: 1.2rem;
-    margin-bottom: 12px;
-  }
-  :global(.org-card p) {
-    color: var(--white-60);
-    font-size: 0.95rem;
-  }
+  :global(.org-card) { padding: 36px 28px; }
+  :global(.org-card h3) { font-size: 1.2rem; margin-bottom: 12px; }
+  :global(.org-card p) { color: var(--white-60); font-size: 0.95rem; }
 
   /* REVERSE MARQUEE */
   .marquee-wrap--reverse {
     background: linear-gradient(90deg, var(--lime), var(--violet), var(--coral), var(--lime));
     background-size: 200% 100%;
   }
-  :global(.marquee-track--reverse) {
-    animation-direction: reverse;
-  }
-
-  /* WAITLIST */
-  .waitlist-section {
-    padding: 80px 0 120px;
-    position: relative;
-    overflow: hidden;
-  }
-  .waitlist-container { position: relative; }
-  .waitlist-blob {
-    position: absolute;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, var(--violet-20), transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-  }
-  .waitlist-card {
-    text-align: center;
-    padding: 64px 40px;
-    max-width: 640px;
-    margin: 0 auto;
-    background: rgba(139,92,246,0.04);
-    border: 1px solid var(--violet-20);
-    position: relative;
-    z-index: 1;
-  }
-  .waitlist-card h2 {
-    font-size: 2rem;
-    margin-bottom: 16px;
-  }
-  .waitlist-card > p {
-    color: var(--white-60);
-    margin-bottom: 32px;
-    font-size: 1.05rem;
-  }
-  .waitlist-form {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
-  }
-  .waitlist-form input {
-    flex: 1;
-    min-width: 240px;
-    padding: 16px 20px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--white-10);
-    border-radius: 50px;
-    color: var(--white);
-    font-family: var(--font);
-    font-size: 1rem;
-    outline: none;
-    transition: border-color 0.3s;
-  }
-  .waitlist-form input:focus {
-    border-color: var(--violet);
-    box-shadow: 0 0 20px var(--violet-20);
-  }
-  .waitlist-form input::placeholder { color: var(--white-60); }
-  .waitlist-success {
-    width: 100%;
-    padding: 12px;
-    color: var(--lime);
-    font-weight: 500;
-  }
+  :global(.marquee-track--reverse) { animation-direction: reverse; }
 
   /* FOOTER */
-  .footer {
-    padding: 64px 0 32px;
-  }
+  .footer { padding: 64px 0 32px; }
   .footer-inner {
     display: grid;
     grid-template-columns: 1fr 2fr;
     gap: 48px;
   }
-  .footer-brand p {
-    color: var(--white-60);
-    margin-top: 8px;
-    font-size: 0.9rem;
-  }
-  .footer-links {
-    display: flex;
-    gap: 64px;
-  }
+  .footer-brand p { color: var(--white-60); margin-top: 8px; font-size: 0.9rem; }
+  .footer-links { display: flex; gap: 64px; }
   .footer-links h4 {
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--white-60);
-    margin-bottom: 16px;
+    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--white-60); margin-bottom: 16px;
   }
   .footer-links a {
-    display: block;
-    color: var(--white-80);
-    text-decoration: none;
-    font-size: 0.9rem;
-    padding: 4px 0;
-    transition: color 0.2s;
+    display: block; color: var(--white-80); text-decoration: none;
+    font-size: 0.9rem; padding: 4px 0; transition: color 0.2s;
   }
   .footer-links a:hover { color: var(--white); }
   .footer-bottom {
-    grid-column: 1 / -1;
-    padding-top: 32px;
-    text-align: center;
-    color: var(--white-60);
-    font-size: 0.85rem;
+    grid-column: 1 / -1; padding-top: 32px; text-align: center;
+    color: var(--white-60); font-size: 0.85rem;
   }
-  .luminari-link {
-    color: var(--violet);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .luminari-link:hover {
-    color: var(--white);
-  }
+  .luminari-link { color: var(--violet); text-decoration: none; transition: color 0.2s; }
+  .luminari-link:hover { color: var(--white); }
 
   /* RESPONSIVE */
   @media (max-width: 768px) {
-    .nav-links a:not(.btn-primary) { display: none; }
+    :global(.nav-mobile-toggle) { display: block; }
+    :global(.nav-links) {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(16px);
+      flex-direction: column;
+      padding: 24px;
+      gap: 16px;
+      border-bottom: 1px solid var(--white-06);
+    }
+    :global(.nav-links--open) { display: flex; }
     .hero { padding: 120px 0 80px; }
     .footer-inner { grid-template-columns: 1fr; }
     .footer-links { flex-wrap: wrap; gap: 32px; }
-    .pricing-grid { grid-template-columns: 1fr; }
+    :global(.featured-events-grid), :global(.events-page-grid) {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

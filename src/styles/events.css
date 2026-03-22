@@ -149,3 +149,80 @@
 .form-input::placeholder {
   color: var(--white-60);
 }
+
+/* NavBar Styles */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 16px 0;
+  background: rgba(10,10,10,0.8);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--white-06);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-size: 1.4rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--white);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+.nav-links a {
+  color: var(--white-60);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.nav-active { color: var(--white); }
+.nav-mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 24px;
+}
+.hamburger span {
+  display: block;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger--open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger--open span:nth-child(2) { opacity: 0; }
+.hamburger--open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+@media (max-width: 768px) {
+  .nav-mobile-toggle { display: block; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10,10,10,0.95);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    padding: 24px;
+    gap: 16px;
+    border-bottom: 1px solid var(--white-06);
+  }
+  .nav-links--open { display: flex; }
+}

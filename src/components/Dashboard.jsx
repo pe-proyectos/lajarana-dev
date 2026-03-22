@@ -30,6 +30,10 @@ export default function Dashboard() {
       <header className="dash-header">
         <a href="/dashboard" className="logo">🎉 LaJarana</a>
         <div className="dash-header-right">
+          <a href="/dashboard/plan" className="btn-ghost btn-sm" style={{ fontSize: '0.8rem' }}>
+            {user?.plan === 'PRO' ? '⭐ Pro' : '🎫 Plan'}
+          </a>
+          <a href="/dashboard/profile" className="btn-ghost btn-sm" style={{ fontSize: '0.8rem' }}>Perfil</a>
           <span className="dash-user-name">{user?.name || user?.email}</span>
           <button className="dash-logout" onClick={logout}>Salir</button>
         </div>

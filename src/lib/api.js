@@ -41,10 +41,8 @@ export const api = {
   getEventStats: (id) => request(`/events/${id}/stats`),
   getPublicEvents: () => request('/public/events'),
   getPublicEvent: (slug) => request(`/public/events/${slug}`),
-  // Plans
+  // Plans (organizer-only, kept getPlans for reference)
   getPlans: () => request('/plans'),
-  upgradePlan: () => request('/plans/upgrade', { method: 'POST' }),
-  cancelPlan: () => request('/plans/cancel', { method: 'POST' }),
   // Users
   getProfile: () => request('/users/me'),
   updateProfile: (body) => request('/users/me', { method: 'PATCH', body: JSON.stringify(body) }),

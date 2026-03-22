@@ -3,6 +3,61 @@ import { getToken, clearToken } from '../lib/api';
 
 const API = 'https://lajarana-api.luminari.agency/api';
 
+function TicketQR({ ticket }) {
+  const [qrUrl, setQrUrl] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+
+  function fetchQR() {
+    const token = getToken();
+    fetch(`${API}/tickets/${ticket.id}/qr`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
+      .then(r => r.blob())
+      .then(blob => setQrUrl(URL.createObjectURL(blob)))
+      .catch(() => setQrUrl(null));
+  }
+
+  useEffect(() => { fetchQR(); }, [ticket.id]);
+
+  async function handleRefresh() {
+    setRefreshing(true);
+    const token = getToken();
+    try {
+      await fetch(`${API}/tickets/${ticket.id}/refresh-qr`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' }
+      });
+      fetchQR();
+    } catch {}
+    setRefreshing(false);
+  }
+
+  return (
+    <div style={{ textAlign: 'center' }}>
+      {qrUrl ? (
+        <img src={qrUrl} alt="QR Code" style={{ width: 120, height: 120, borderRadius: 12, background: 'white', padding: 8 }} />
+      ) : (
+        <div style={{ width: 120, height: 120, borderRadius: 12, background: 'var(--bg-card)', border: '1px solid var(--white-06)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>
+          🎟️
+        </div>
+      )}
+      <div style={{ fontSize: '0.75rem', color: 'var(--white-60)', marginTop: 8 }}>
+        {ticket.status === 'USED' ? '✅ Usado' : ticket.status === 'CANCELLED' ? '❌ Cancelado' : '🎫 Válido'}
+      </div>
+      {ticket.status === 'VALID' && (
+        <button
+          onClick={handleRefresh}
+          disabled={refreshing}
+          className="btn-ghost btn-sm"
+          style={{ marginTop: 8, fontSize: '0.75rem' }}
+        >
+          {refreshing ? '...' : '🔄 Actualizar QR'}
+        </button>
+      )}
+    </div>
+  );
+}
+
 export default function MyTickets() {
   const [tickets, setTickets] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -62,7 +117,7 @@ export default function MyTickets() {
                   <div>
                     <h3 style={{ marginBottom: 8 }}>{ticket.event?.title || 'Evento'}</h3>
                     <div style={{ color: 'var(--white-60)', fontSize: '0.9rem', marginBottom: 4 }}>
-                      {ticket.ticketType?.name || 'Entrada'}
+                      🎫 {ticket.ticketType?.name || 'Entrada'}
                     </div>
                     {ticket.event?.startDate && (
                       <div style={{ color: 'var(--white-60)', fontSize: '0.85rem' }}>
@@ -75,18 +130,7 @@ export default function MyTickets() {
                       </div>
                     )}
                   </div>
-                  <div style={{ textAlign: 'center' }}>
-                    {ticket.qrCode ? (
-                      <img src={ticket.qrCode} alt="QR Code" style={{ width: 120, height: 120, borderRadius: 12, background: 'white', padding: 8 }} />
-                    ) : (
-                      <div style={{ width: 120, height: 120, borderRadius: 12, background: 'var(--bg-card)', border: '1px solid var(--white-06)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '2rem' }}>
-                        🎟️
-                      </div>
-                    )}
-                    <div style={{ fontSize: '0.75rem', color: 'var(--white-60)', marginTop: 8 }}>
-                      {ticket.status === 'USED' ? '✅ Usado' : ticket.status === 'CANCELLED' ? '❌ Cancelado' : '🎫 Válido'}
-                    </div>
-                  </div>
+                  <TicketQR ticket={ticket} />
                 </div>
               </div>
             ))}

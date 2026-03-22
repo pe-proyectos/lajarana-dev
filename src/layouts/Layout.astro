@@ -1,4 +1,6 @@
 ---
+import '../styles/events.css';
+
 interface Props {
   title: string;
   description?: string;
@@ -6,8 +8,6 @@ interface Props {
 }
 const { title, description = 'LaJarana — Plataforma de tickets digitales para eventos en Perú. Compra entradas, muestra tu QR y disfruta.', ogImage = '/og-default.png' } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, 'https://dev-lajarana.luminari.agency');
----
-import '../styles/events.css';
 ---
 <!doctype html>
 <html lang="es">

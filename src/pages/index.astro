@@ -5,7 +5,7 @@ import HeroSearch from '../components/HeroSearch.jsx';
 import FeaturedEvents from '../components/FeaturedEvents.jsx';
 ---
 
-<Layout title="LaJarana — Encuentra eventos y compra entradas" description="Encuentra los mejores eventos en Perú. Compra entradas digitales, muestra tu QR y disfruta." ogImage="/og-image.jpg">
+<Layout title="LaJarana — Encuentra eventos y compra entradas" description="Encuentra los mejores eventos en Perú. Compra entradas digitales, muestra tu QR y disfruta." ogImage="/og-image.jpg" jsonLd={JSON.stringify({"@context":"https://schema.org","@type":"Organization","name":"LaJarana","url":"https://dev-lajarana.luminari.agency","description":"Plataforma de boletería digital para eventos en Perú"})}>
   <NavBar current="home" client:load />
 
   <!-- HERO WITH SEARCH -->

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /mi-cuenta/
+Sitemap: https://dev-lajarana.luminari.agency/sitemap.xml

@@ -1,13 +1,16 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 
 export function useScrollReveal(selector = '.reveal', staggerMs = 80) {
   const containerRef = useRef(null);
+  const observerRef = useRef(null);
 
-  useEffect(() => {
+  const observe = useCallback(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const elements = container.querySelectorAll(selector);
+    if (observerRef.current) observerRef.current.disconnect();
+
+    const elements = container.querySelectorAll(selector + ':not(.revealed)');
     if (elements.length === 0) return;
 
     const observer = new IntersectionObserver(
@@ -15,7 +18,8 @@ export function useScrollReveal(selector = '.reveal', staggerMs = 80) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             const el = entry.target;
-            const index = Array.from(elements).indexOf(el);
+            const allEls = container.querySelectorAll(selector);
+            const index = Array.from(allEls).indexOf(el);
             setTimeout(() => {
               el.classList.add('revealed');
             }, index * staggerMs);
@@ -23,13 +27,29 @@ export function useScrollReveal(selector = '.reveal', staggerMs = 80) {
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      { threshold: 0.05, rootMargin: '0px 0px 50px 0px' }
     );
 
     elements.forEach((el) => observer.observe(el));
-
-    return () => observer.disconnect();
+    observerRef.current = observer;
   }, [selector, staggerMs]);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    observe();
+
+    const mutation = new MutationObserver(() => {
+      setTimeout(observe, 50);
+    });
+    mutation.observe(container, { childList: true, subtree: true });
+
+    return () => {
+      mutation.disconnect();
+      if (observerRef.current) observerRef.current.disconnect();
+    };
+  }, [observe]);
 
   return containerRef;
 }

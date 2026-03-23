@@ -1,10 +1,14 @@
-/* Scroll reveal animations */
+/* Scroll reveal animations — cards visible by default, animation is progressive enhancement */
 .reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal.will-animate {
   opacity: 0;
   transform: translateY(24px);
   transition: opacity 0.6s ease, transform 0.6s ease;
 }
-.revealed {
+.reveal.will-animate.revealed {
   opacity: 1;
   transform: translateY(0);
 }

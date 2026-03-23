@@ -1,4 +1,9 @@
 User-agent: *
 Allow: /
+Allow: /eventos
 Disallow: /mi-cuenta/
-Sitemap: https://dev-lajarana.luminari.agency/sitemap.xml
+Disallow: /checkout/
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://dev-lajarana.luminari.agency/sitemap-index.xml

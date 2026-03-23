@@ -19,7 +19,11 @@ function getPriceRange(ticketTypes) {
 export default function EventsGrid() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(() => {
+    if (typeof window === 'undefined') return '';
+    const params = new URLSearchParams(window.location.search);
+    return params.get('q') || '';
+  });
 
   useEffect(() => {
     api.getPublicEvents()

@@ -62,8 +62,8 @@ export default function PublicEvent({ slug }) {
       }
     } catch (err) {
       setBuyError(err.message || 'Error al procesar la compra');
+      setBuying(false);
     }
-    setBuying(false);
   }
 
   function handleShare() {

@@ -214,8 +214,12 @@ export default function PublicEvent({ slug }) {
                   return (
                     <div key={t.id} className={`ticket-select-card ${soldOut ? 'ticket-sold-out' : ''}`}>
                       <div className="ticket-select-info">
-                        <div className="ticket-select-name">{t.name}</div>
+                        <div className="ticket-select-name">
+                          {t.name}
+                          {t.isBox && <span style={{ background: 'rgba(139,92,246,0.2)', color: '#a78bfa', padding: '2px 8px', borderRadius: 12, fontSize: '0.7rem', marginLeft: 8, fontWeight: 600 }}>📦 Box x{t.boxQuantity}</span>}
+                        </div>
                         {t.description && <div className="ticket-select-desc">{t.description}</div>}
+                        {t.isBox && <div className="ticket-select-desc" style={{ color: 'var(--violet)', fontWeight: 500 }}>Incluye {t.boxQuantity} entradas</div>}
                         <div className="ticket-select-price">S/ {Number(t.price).toFixed(2)}</div>
                       </div>
                       {soldOut ? (

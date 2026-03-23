@@ -130,6 +130,115 @@
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
 }
+/* Category pills */
+.category-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.category-pill {
+  padding: 8px 18px;
+  border-radius: 50px;
+  border: 1px solid var(--white-10);
+  background: transparent;
+  color: var(--white-60);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.category-pill:hover {
+  border-color: var(--violet);
+  color: var(--white);
+}
+.category-pill--active {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Event card category badge */
+.event-card-category {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: rgba(139,92,246,0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 40px;
+  padding: 20px 0;
+}
+.pagination-btn {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid var(--white-10);
+  background: transparent;
+  color: var(--white-60);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.pagination-btn:hover:not(:disabled) {
+  border-color: var(--violet);
+  color: var(--white);
+}
+.pagination-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.pagination-pages {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.pagination-num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--white-10);
+  background: transparent;
+  color: var(--white-60);
+  font-family: var(--font);
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pagination-num:hover { border-color: var(--violet); color: var(--white); }
+.pagination-num--active {
+  background: var(--violet);
+  border-color: var(--violet);
+  color: #fff;
+  font-weight: 600;
+}
+.pagination-dots { color: var(--white-40); padding: 0 4px; }
+
+@media (max-width: 768px) {
+  .category-pills { gap: 6px; }
+  .category-pill { padding: 6px 14px; font-size: 0.8rem; }
+  .pagination { flex-wrap: wrap; gap: 8px; }
+  .pagination-btn { padding: 8px 14px; font-size: 0.8rem; }
+}
+
 /* Form input for search */
 .form-input {
   width: 100%;

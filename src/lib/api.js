@@ -39,7 +39,16 @@ export const api = {
   getTicketTypes: (eventId) => request(`/ticket-types/by-event/${eventId}`),
   createTicketType: (body) => request('/ticket-types', { method: 'POST', body: JSON.stringify(body) }),
   getEventStats: (id) => request(`/events/${id}/stats`),
-  getPublicEvents: () => request('/public/events'),
+  getPublicEvents: (params = {}) => {
+    const qs = new URLSearchParams();
+    if (params.page) qs.set('page', params.page);
+    if (params.limit) qs.set('limit', params.limit);
+    if (params.category) qs.set('category', params.category);
+    if (params.city) qs.set('city', params.city);
+    const q = qs.toString();
+    return request(`/public/events${q ? '?' + q : ''}`);
+  },
+  getCategories: () => request('/categories'),
   getPublicEvent: (slug) => request(`/public/events/${slug}`),
   // Plans (organizer-only, kept getPlans for reference)
   getPlans: () => request('/plans'),

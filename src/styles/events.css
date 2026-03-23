@@ -498,3 +498,112 @@
   }
   .nav-links--open { display: flex; }
 }
+
+/* ===== Entrada Boxes ===== */
+.entrada-boxes-section {
+  margin-bottom: 20px;
+}
+.entrada-boxes-title {
+  font-size: 1.1rem;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--violet), var(--lime));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.entrada-box-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(132,204,22,0.05));
+  border: 2px solid transparent;
+  border-image: linear-gradient(135deg, var(--violet), var(--lime)) 1;
+  border-radius: 0; /* border-image doesn't work with border-radius */
+  padding: 20px;
+  margin-bottom: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+/* Use outline trick for rounded gradient border effect */
+.entrada-box-card {
+  border: none;
+  border-radius: var(--radius);
+  outline: 2px solid var(--violet);
+  outline-offset: -2px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(132,204,22,0.05)) padding-box;
+}
+.entrada-box-card:hover:not(.entrada-box-soldout) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(139,92,246,0.25);
+  outline-color: var(--lime);
+}
+.entrada-box-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--violet), #a78bfa);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+.entrada-box-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.entrada-box-desc {
+  font-size: 0.85rem;
+  color: var(--white-60);
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+.entrada-box-includes {
+  font-size: 0.9rem;
+  color: var(--lime);
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.entrada-box-pricing {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.entrada-box-price {
+  font-size: 1.4rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--violet), var(--lime));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.entrada-box-savings {
+  font-size: 0.8rem;
+  color: var(--lime);
+  font-weight: 600;
+  background: rgba(132,204,22,0.12);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+.entrada-box-remaining {
+  font-size: 0.78rem;
+  color: var(--white-40);
+  margin-bottom: 12px;
+}
+.entrada-box-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 4px;
+}
+.entrada-box-soldout {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.entrada-box-soldout-label {
+  text-align: center;
+  color: var(--coral);
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 8px 0;
+}

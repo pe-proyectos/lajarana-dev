@@ -4,12 +4,14 @@ import { api } from '../lib/api';
 export default function PublicEvent({ slug }) {
   const [event, setEvent] = useState(null);
   const [tickets, setTickets] = useState([]);
+  const [boxes, setBoxes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [quantities, setQuantities] = useState({});
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [buying, setBuying] = useState(false);
   const [buyError, setBuyError] = useState('');
+  const [buyingBoxId, setBuyingBoxId] = useState(null);
   const [showFloatingCta, setShowFloatingCta] = useState(false);
   const mainCtaRef = useRef(null);
 
@@ -20,6 +22,12 @@ export default function PublicEvent({ slug }) {
         setEvent(evt);
         setTickets(evt.ticketTypes || []);
         setLoading(false);
+        // Fetch entrada boxes
+        if (evt.id) {
+          api.getEntradaBoxes(evt.id)
+            .then(data => setBoxes((data.boxes || data || []).filter(b => b.active)))
+            .catch(() => {}); // silently fail if no boxes
+        }
       })
       .catch(err => { setError(err.message); setLoading(false); });
   }, []);
@@ -76,6 +84,33 @@ export default function PublicEvent({ slug }) {
     } catch (err) {
       setBuyError(err.message || 'Error al procesar la compra');
       setBuying(false);
+    }
+  }
+
+  async function handleBuyBox(box) {
+    const token = localStorage.getItem('jarana_token');
+    if (!token) {
+      window.location.href = `/login?redirect=${encodeURIComponent(window.location.pathname)}`;
+      return;
+    }
+    setBuyingBoxId(box.id);
+    try {
+      const res = await api.createPreference({
+        eventId: event.id,
+        boxId: box.id,
+        items: [{ ticketTypeId: box.ticketTypeId, quantity: box.quantity }],
+      });
+      if (res.free) {
+        window.location.href = `/checkout/success?order=${res.orderId}`;
+        return;
+      }
+      if (res.initPoint) {
+        window.location.href = res.initPoint;
+      }
+    } catch (err) {
+      alert(err.message || 'Error al procesar la compra');
+    } finally {
+      setBuyingBoxId(null);
     }
   }
 
@@ -201,6 +236,49 @@ export default function PublicEvent({ slug }) {
 
         {/* Right: Tickets sidebar */}
         <div className="tickets-sidebar">
+          {/* Entrada Boxes */}
+          {boxes.length > 0 && (
+            <div className="entrada-boxes-section">
+              <h3 className="entrada-boxes-title">📦 Packs Especiales</h3>
+              {boxes.map(box => {
+                const individualTotal = box.quantity * Number(box.ticketType?.price || 0);
+                const savings = individualTotal - Number(box.price);
+                const remaining = box.maxBoxes ? box.maxBoxes - (box.soldBoxes || 0) : null;
+                const soldOut = remaining !== null && remaining <= 0;
+                return (
+                  <div key={box.id} className={`entrada-box-card${soldOut ? ' entrada-box-soldout' : ''}`}>
+                    <div className="entrada-box-badge">PACK</div>
+                    <div className="entrada-box-name">{box.name}</div>
+                    {box.description && <div className="entrada-box-desc">{box.description}</div>}
+                    <div className="entrada-box-includes">
+                      {box.quantity}x {box.ticketType?.name || 'Entrada'}
+                    </div>
+                    <div className="entrada-box-pricing">
+                      <span className="entrada-box-price">S/ {Number(box.price).toFixed(2)}</span>
+                      {savings > 0 && (
+                        <span className="entrada-box-savings">Ahorras S/ {savings.toFixed(2)}</span>
+                      )}
+                    </div>
+                    {remaining !== null && !soldOut && (
+                      <div className="entrada-box-remaining">Quedan {remaining} disponibles</div>
+                    )}
+                    {soldOut ? (
+                      <div className="entrada-box-soldout-label">Agotado</div>
+                    ) : (
+                      <button
+                        className="btn-primary entrada-box-btn"
+                        onClick={() => handleBuyBox(box)}
+                        disabled={buyingBoxId === box.id}
+                      >
+                        {buyingBoxId === box.id ? 'Procesando...' : 'Comprar Pack'}
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+
           <div className="tickets-sidebar-card">
             <h3 style={{ marginBottom: 20 }}>🎟️ Entradas</h3>
             {tickets.length === 0 ? (

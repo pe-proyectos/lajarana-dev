@@ -60,4 +60,7 @@ export const api = {
   getPaymentStatus: (orderId) => request(`/payments/status/${orderId}`),
   // Orders
   getMyOrders: () => request('/orders/my'),
+  // Entrada Boxes
+  getEntradaBoxes: (eventId) => request(`/entrada-boxes/event/${eventId}`),
+  createBoxPreference: (body) => request('/payments/create-preference', { method: 'POST', body: JSON.stringify(body) }),
 };

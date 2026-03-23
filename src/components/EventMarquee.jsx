@@ -15,16 +15,20 @@ export default function EventMarquee() {
 
   if (events.length === 0) return null;
 
-  const content = events.map(e => {
+  const items = events.map(e => {
     const city = e.city || 'Perú';
-    return `🎉 ${e.title} · 📍 ${city}`;
-  }).join('  ·  ');
+    const date = new Date(e.startDate).toLocaleDateString('es-PE', { day: 'numeric', month: 'short' });
+    return `${e.title} — ${date} — ${city}`;
+  });
+
+  const separator = ' ✦ ';
+  const content = items.join(separator) + separator;
 
   return (
     <div className="marquee-wrapper">
       <div className="marquee-track">
-        <span className="marquee-content">{content}  ·  </span>
-        <span className="marquee-content">{content}  ·  </span>
+        <span className="marquee-content" dangerouslySetInnerHTML={{ __html: content }} />
+        <span className="marquee-content" dangerouslySetInnerHTML={{ __html: content }} />
       </div>
     </div>
   );

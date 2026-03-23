@@ -16,21 +16,30 @@
 /* Marquee */
 .marquee-wrapper {
   overflow: hidden;
-  background: rgba(139,92,246,0.08);
-  border-top: 1px solid rgba(139,92,246,0.15);
-  border-bottom: 1px solid rgba(139,92,246,0.15);
-  padding: 12px 0;
+  background: transparent;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 14px 0;
   white-space: nowrap;
 }
 .marquee-track {
   display: inline-flex;
-  animation: marquee 35s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 .marquee-content {
-  color: rgba(255,255,255,0.5);
-  font-size: 0.85rem;
-  letter-spacing: 0.02em;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
   padding-right: 0;
+}
+.marquee-content span {
+  opacity: 0.5;
+  margin: 0 16px;
+}
+.marquee-content strong {
+  color: var(--violet);
+  font-weight: 600;
 }
 @keyframes marquee {
   from { transform: translateX(0); }

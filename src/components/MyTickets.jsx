@@ -17,7 +17,22 @@ function TicketQR({ ticket }) {
       .catch(() => setQrUrl(null));
   }
 
-  useEffect(() => { fetchQR(); }, [ticket.id]);
+  useEffect(() => {
+    fetchQR();
+    if (ticket.status === 'VALID') {
+      const interval = setInterval(async () => {
+        const t = getToken();
+        try {
+          await fetch(`${API}/tickets/${ticket.id}/refresh-qr`, {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${t}`, 'Content-Type': 'application/json' }
+          });
+          fetchQR();
+        } catch {}
+      }, 25000);
+      return () => clearInterval(interval);
+    }
+  }, [ticket.id, ticket.status]);
 
   async function handleRefresh() {
     setRefreshing(true);

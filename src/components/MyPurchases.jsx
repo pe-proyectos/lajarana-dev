@@ -31,7 +31,7 @@ export default function MyPurchases() {
   return (
     <div className="dash-layout">
       <header className="dash-header">
-        <a href="/" className="logo">🎉 LaJarana</a>
+        <a href="/" className="logo"><img src="/logo.png" alt="LaJarana" style={{height:'32px',marginRight:'8px',verticalAlign:'middle'}} /> LaJarana</a>
         <div className="dash-header-right">
           <a href="/eventos" className="btn-ghost btn-sm" style={{ fontSize: '0.8rem' }}>Eventos</a>
           <button className="dash-logout" onClick={logout}>Salir</button>

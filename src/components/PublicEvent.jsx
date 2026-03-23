@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { api } from '../lib/api';
 
 export default function PublicEvent({ slug }) {
@@ -10,6 +10,8 @@ export default function PublicEvent({ slug }) {
   const [showBuyModal, setShowBuyModal] = useState(false);
   const [buying, setBuying] = useState(false);
   const [buyError, setBuyError] = useState('');
+  const [showFloatingCta, setShowFloatingCta] = useState(false);
+  const mainCtaRef = useRef(null);
 
   useEffect(() => {
     api.getPublicEvent(slug)
@@ -21,6 +23,17 @@ export default function PublicEvent({ slug }) {
       })
       .catch(err => { setError(err.message); setLoading(false); });
   }, []);
+
+  useEffect(() => {
+    const el = mainCtaRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowFloatingCta(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [event]);
 
   function updateQty(id, delta) {
     setQuantities(q => {
@@ -228,6 +241,7 @@ export default function PublicEvent({ slug }) {
                 )}
 
                 <button
+                  ref={mainCtaRef}
                   className="btn-primary"
                   style={{ width: '100%', justifyContent: 'center', marginTop: 16 }}
                   disabled={totalTickets() === 0}
@@ -240,6 +254,27 @@ export default function PublicEvent({ slug }) {
           </div>
         </div>
       </div>
+
+      {/* Floating CTA (mobile) */}
+      {event && (
+        <div className={`floating-cta${showFloatingCta ? ' floating-cta--visible' : ''}`}>
+          <div className="floating-cta-info">
+            <div className="floating-cta-title">{event.title}</div>
+            <div className="floating-cta-price">
+              {(() => {
+                const tt = event.ticketTypes || [];
+                const prices = tt.map(t => Number(t.price)).filter(p => p > 0);
+                return prices.length === 0 ? 'Gratis' : `Desde S/ ${Math.min(...prices).toFixed(2)}`;
+              })()}
+            </div>
+          </div>
+          <button className="btn-primary" style={{ flexShrink: 0, padding: '10px 24px' }} onClick={() => {
+            document.querySelector('.tickets-sidebar')?.scrollIntoView({ behavior: 'smooth' });
+          }}>
+            Comprar
+          </button>
+        </div>
+      )}
 
       {/* Buy modal */}
       {showBuyModal && (

@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import NavBar from '../components/NavBar.jsx';
 import HeroSearch from '../components/HeroSearch.jsx';
 import FeaturedEvents from '../components/FeaturedEvents.jsx';
+import EventMarquee from '../components/EventMarquee.jsx';
 ---
 
 <Layout title="LaJarana — Encuentra eventos y compra entradas" description="Encuentra los mejores eventos en Perú. Compra entradas digitales, muestra tu QR y disfruta." ogImage="/og-image.jpg" jsonLd={JSON.stringify({"@context":"https://schema.org","@type":"Organization","name":"LaJarana","url":"https://dev-lajarana.luminari.agency","description":"Plataforma de boletería digital para eventos en Perú"})}>
@@ -12,6 +13,9 @@ import FeaturedEvents from '../components/FeaturedEvents.jsx';
   <section class="hero-search">
     <HeroSearch client:load />
   </section>
+
+  <!-- MARQUEE -->
+  <EventMarquee client:load />
 
   <!-- EVENTS GRID -->
   <section id="eventos" class="section--events">

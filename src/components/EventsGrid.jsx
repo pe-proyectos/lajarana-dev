@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '../lib/api';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const CATEGORIES = ["Concierto", "Festival", "Fiesta", "Teatro", "Deportes", "Conferencia", "Otro"];
 const PAGE_SIZE = 12;
@@ -14,9 +15,34 @@ function getPriceRange(ticketTypes) {
   const prices = ticketTypes.map(t => Number(t.price)).filter(p => p > 0);
   if (prices.length === 0) return 'Gratis';
   const min = Math.min(...prices);
-  const max = Math.max(...prices);
-  if (min === max) return `S/ ${min.toFixed(2)}`;
   return `Desde S/ ${min.toFixed(2)}`;
+}
+
+function getBadges(evt) {
+  const badges = [];
+  const tt = evt.ticketTypes || [];
+  if (tt.length > 0 && tt.every(t => Number(t.price) === 0)) {
+    badges.push({ label: 'Gratis', cls: 'event-badge--gratis' });
+  }
+  if (tt.length > 0) {
+    const totalQty = tt.reduce((s, t) => s + (t.quantity || 0), 0);
+    const totalSold = tt.reduce((s, t) => s + (t.sold || 0), 0);
+    if (totalQty > 0 && totalSold / totalQty > 0.8) {
+      badges.push({ label: 'Últimas entradas', cls: 'event-badge--ultimas' });
+    }
+    if (totalSold >= 50) {
+      badges.push({ label: '🔥 Popular', cls: 'event-badge--popular' });
+    }
+  }
+  if (evt.createdAt) {
+    const created = new Date(evt.createdAt);
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    if (created >= weekAgo) {
+      badges.push({ label: 'Nuevo', cls: 'event-badge--nuevo' });
+    }
+  }
+  return badges;
 }
 
 export default function EventsGrid() {
@@ -31,6 +57,7 @@ export default function EventsGrid() {
     const params = new URLSearchParams(window.location.search);
     return params.get('q') || '';
   });
+  const containerRef = useScrollReveal('.reveal', 80);
 
   function loadEvents(p, cat) {
     setLoading(true);
@@ -81,7 +108,6 @@ export default function EventsGrid() {
 
   return (
     <div>
-      {/* Category filters */}
       <div className="category-pills">
         <button className={`category-pill${category === '' ? ' category-pill--active' : ''}`} onClick={() => changeCategory('')}>
           Todos
@@ -111,43 +137,52 @@ export default function EventsGrid() {
         </div>
       ) : (
         <>
-          <div className="events-page-grid">
-            {filtered.map(evt => (
-              <a key={evt.id} href={`/events/${evt.slug}`} className="event-card island">
-                <div className="event-card-cover">
-                  {evt.coverImage ? (
-                    <img src={evt.coverImage} alt={evt.title} loading="lazy" />
-                  ) : (
-                    <div className="event-card-placeholder">🎉</div>
-                  )}
-                  {evt.startDate && (
-                    <div className="event-card-date">
-                      <span className="event-card-date-day">{new Date(evt.startDate).getDate()}</span>
-                      <span className="event-card-date-month">{new Date(evt.startDate).toLocaleDateString('es-PE', { month: 'short' }).toUpperCase()}</span>
+          <div className="events-page-grid" ref={containerRef}>
+            {filtered.map((evt, i) => {
+              const badges = getBadges(evt);
+              return (
+                <a key={evt.id} href={`/events/${evt.slug}`} className="event-card island reveal">
+                  <div className="event-card-cover">
+                    {evt.coverImage ? (
+                      <img src={evt.coverImage} alt={evt.title} loading="lazy" />
+                    ) : (
+                      <div className="event-card-placeholder">🎉</div>
+                    )}
+                    {badges.length > 0 && (
+                      <div className="event-card-badges">
+                        {badges.map((b, j) => (
+                          <span key={j} className={`event-badge ${b.cls}`}>{b.label}</span>
+                        ))}
+                      </div>
+                    )}
+                    {evt.startDate && (
+                      <div className="event-card-date">
+                        <span className="event-card-date-day">{new Date(evt.startDate).getDate()}</span>
+                        <span className="event-card-date-month">{new Date(evt.startDate).toLocaleDateString('es-PE', { month: 'short' }).toUpperCase()}</span>
+                      </div>
+                    )}
+                    {evt.category && (
+                      <div className="event-card-category">{evt.category}</div>
+                    )}
+                  </div>
+                  <div className="event-card-body">
+                    <h3 className="event-card-title">{evt.title}</h3>
+                    <div className="event-card-meta">
+                      {evt.startDate && <span>📅 {formatDate(evt.startDate)}</span>}
                     </div>
-                  )}
-                  {evt.category && (
-                    <div className="event-card-category">{evt.category}</div>
-                  )}
-                </div>
-                <div className="event-card-body">
-                  <h3 className="event-card-title">{evt.title}</h3>
-                  <div className="event-card-meta">
-                    {evt.startDate && <span>📅 {formatDate(evt.startDate)}</span>}
+                    <div className="event-card-meta">
+                      {evt.venue && <span>📍 {evt.venue}</span>}
+                      {evt.city && <span> · {evt.city}</span>}
+                    </div>
+                    <div className="event-card-price">
+                      {getPriceRange(evt.ticketTypes) || 'Gratis'}
+                    </div>
                   </div>
-                  <div className="event-card-meta">
-                    {evt.venue && <span>📍 {evt.venue}</span>}
-                    {evt.city && <span> · {evt.city}</span>}
-                  </div>
-                  <div className="event-card-price">
-                    {getPriceRange(evt.ticketTypes) || 'Gratis'}
-                  </div>
-                </div>
-              </a>
-            ))}
+                </a>
+              );
+            })}
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className="pagination">
               <button className="pagination-btn" disabled={page <= 1} onClick={() => setPage(p => p - 1)}>← Anterior</button>

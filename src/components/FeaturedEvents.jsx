@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { api } from '../lib/api';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 function formatDate(dateStr) {
   if (!dateStr) return '';
@@ -12,14 +13,48 @@ function getPriceRange(ticketTypes) {
   const prices = ticketTypes.map(t => Number(t.price)).filter(p => p > 0);
   if (prices.length === 0) return 'Gratis';
   const min = Math.min(...prices);
-  const max = Math.max(...prices);
-  if (min === max) return `S/ ${min.toFixed(2)}`;
-  return `S/ ${min.toFixed(2)} — ${max.toFixed(2)}`;
+  return `Desde S/ ${min.toFixed(2)}`;
+}
+
+function getBadges(evt) {
+  const badges = [];
+  const tt = evt.ticketTypes || [];
+
+  // Gratis
+  if (tt.length > 0 && tt.every(t => Number(t.price) === 0)) {
+    badges.push({ label: 'Gratis', cls: 'event-badge--gratis' });
+  }
+
+  // Últimas entradas (>80% sold)
+  if (tt.length > 0) {
+    const totalQty = tt.reduce((s, t) => s + (t.quantity || 0), 0);
+    const totalSold = tt.reduce((s, t) => s + (t.sold || 0), 0);
+    if (totalQty > 0 && totalSold / totalQty > 0.8) {
+      badges.push({ label: 'Últimas entradas', cls: 'event-badge--ultimas' });
+    }
+    // Popular (many sales)
+    if (totalSold >= 50) {
+      badges.push({ label: '🔥 Popular', cls: 'event-badge--popular' });
+    }
+  }
+
+  // Nuevo (created in last 7 days)
+  if (evt.createdAt) {
+    const created = new Date(evt.createdAt);
+    const weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    if (created >= weekAgo) {
+      badges.push({ label: 'Nuevo', cls: 'event-badge--nuevo' });
+    }
+  }
+
+  return badges;
 }
 
 export default function FeaturedEvents() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
+  const containerRef = useScrollReveal('.reveal', 80);
 
   useEffect(() => {
     api.getPublicEvents()
@@ -62,36 +97,47 @@ export default function FeaturedEvents() {
   }
 
   return (
-    <div className="featured-events-grid">
-      {events.map(evt => (
-        <a key={evt.id} href={`/events/${evt.slug}`} className="event-card island">
-          <div className="event-card-cover">
-            {evt.coverImage ? (
-              <img src={evt.coverImage} alt={evt.title} loading="lazy" />
-            ) : (
-              <div className="event-card-placeholder">🎉</div>
-            )}
-            {evt.startDate && (
-              <div className="event-card-date">
-                <span className="event-card-date-day">{new Date(evt.startDate).getDate()}</span>
-                <span className="event-card-date-month">{new Date(evt.startDate).toLocaleDateString('es-PE', { month: 'short' }).toUpperCase()}</span>
-              </div>
-            )}
-          </div>
-          <div className="event-card-body">
-            <h3 className="event-card-title">{evt.title}</h3>
-            <div className="event-card-meta">
-              {evt.venue && <span>📍 {evt.venue}</span>}
-              {evt.city && <span> · {evt.city}</span>}
+    <div className="featured-events-grid" ref={containerRef}>
+      {events.map((evt, i) => {
+        const badges = getBadges(evt);
+        return (
+          <a key={evt.id} href={`/events/${evt.slug}`} className="event-card island reveal">
+            <div className="event-card-cover">
+              {evt.coverImage ? (
+                <img src={evt.coverImage} alt={evt.title} loading="lazy" />
+              ) : (
+                <div className="event-card-placeholder">🎉</div>
+              )}
+              {badges.length > 0 && (
+                <div className="event-card-badges">
+                  {badges.map((b, j) => (
+                    <span key={j} className={`event-badge ${b.cls}`}>{b.label}</span>
+                  ))}
+                </div>
+              )}
+              {evt.startDate && (
+                <div className="event-card-date">
+                  <span className="event-card-date-day">{new Date(evt.startDate).getDate()}</span>
+                  <span className="event-card-date-month">{new Date(evt.startDate).toLocaleDateString('es-PE', { month: 'short' }).toUpperCase()}</span>
+                </div>
+              )}
+              {evt.category && (
+                <div className="event-card-category">{evt.category}</div>
+              )}
             </div>
-            {evt.ticketTypes && (
+            <div className="event-card-body">
+              <h3 className="event-card-title">{evt.title}</h3>
+              <div className="event-card-meta">
+                {evt.venue && <span>📍 {evt.venue}</span>}
+                {evt.city && <span> · {evt.city}</span>}
+              </div>
               <div className="event-card-price">
                 {getPriceRange(evt.ticketTypes) || 'Gratis'}
               </div>
-            )}
-          </div>
-        </a>
-      ))}
+            </div>
+          </a>
+        );
+      })}
     </div>
   );
 }

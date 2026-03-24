@@ -35,4 +35,305 @@ import '../../styles/dashboard.css';
     color: var(--white);
     background: rgba(139,92,246,0.1);
   }
+
+  /* ============ PURCHASE STATS ============ */
+  :global(.purchase-stats) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  :global(.purchase-stat) {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--white-06);
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+  }
+  :global(.purchase-stat-value) {
+    display: block;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  :global(.purchase-stat-label) {
+    font-size: 0.8rem;
+    color: var(--white-60);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* ============ PURCHASE CARD ============ */
+  :global(.purchase-card) {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--white-06);
+    border-radius: 16px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    transition: border-color 0.2s;
+  }
+  :global(.purchase-card:hover) {
+    border-color: var(--white-10);
+  }
+  :global(.purchase-card--expanded) {
+    border-color: var(--violet-40);
+  }
+  :global(.purchase-card-header) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 28px;
+    cursor: pointer;
+    gap: 16px;
+    user-select: none;
+  }
+  :global(.purchase-card-left) {
+    flex: 1;
+    min-width: 0;
+  }
+  :global(.purchase-event-name) {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  :global(.purchase-meta) {
+    display: flex;
+    gap: 12px;
+    color: var(--white-60);
+    font-size: 0.85rem;
+  }
+  :global(.purchase-card-right) {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  :global(.purchase-total) {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--lime);
+  }
+  :global(.purchase-status) {
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+  :global(.purchase-status--paid) {
+    background: rgba(132,204,22,0.12);
+    color: var(--lime);
+  }
+  :global(.purchase-status--pending) {
+    background: rgba(255,255,255,0.08);
+    color: var(--white-60);
+  }
+  :global(.purchase-status--cancelled) {
+    background: rgba(255,107,107,0.12);
+    color: var(--coral);
+  }
+  :global(.purchase-chevron) {
+    font-size: 1.2rem;
+    color: var(--white-60);
+    transition: transform 0.2s;
+  }
+  :global(.purchase-chevron--open) {
+    transform: rotate(180deg);
+  }
+
+  /* ============ PURCHASE DETAILS ============ */
+  :global(.purchase-details) {
+    padding: 0 28px 28px;
+    animation: slideDown 0.2s ease;
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  :global(.purchase-details-divider) {
+    height: 1px;
+    background: var(--white-06);
+    margin-bottom: 20px;
+  }
+  :global(.purchase-info-grid) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  :global(.purchase-info-item) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  :global(.purchase-info-label) {
+    font-size: 0.72rem;
+    color: var(--white-60);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  :global(.purchase-info-value) {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+  :global(.purchase-items-title) {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white-80);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  :global(.purchase-items-list) {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  :global(.purchase-item-row) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--white-06);
+    border-radius: 12px;
+  }
+  :global(.purchase-item-left) {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  :global(.purchase-item-type) {
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+  :global(.purchase-item-qty) {
+    font-size: 0.8rem;
+    color: var(--white-60);
+    background: var(--white-06);
+    padding: 2px 8px;
+    border-radius: 20px;
+  }
+  :global(.purchase-item-right) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
+  :global(.purchase-item-unit) {
+    font-size: 0.78rem;
+    color: var(--white-60);
+  }
+  :global(.purchase-item-subtotal) {
+    font-weight: 600;
+    color: var(--white);
+  }
+  :global(.purchase-total-row) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 0;
+    border-top: 1px solid var(--white-06);
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  :global(.purchase-total-amount) {
+    font-size: 1.2rem;
+    color: var(--lime);
+    font-weight: 700;
+  }
+  :global(.purchase-actions) {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  :global(.purchase-action-btn) {
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-family: var(--font);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border: none;
+  }
+  :global(.purchase-action-btn--primary) {
+    background: var(--gradient-main);
+    color: var(--bg);
+    font-weight: 600;
+  }
+  :global(.purchase-action-btn--primary:hover) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  :global(.purchase-action-btn--ghost) {
+    background: none;
+    border: 1px solid var(--white-10);
+    color: var(--white);
+  }
+  :global(.purchase-action-btn--ghost:hover) {
+    border-color: var(--violet);
+  }
+
+  /* ============ EMPTY STATE ============ */
+  :global(.purchase-empty) {
+    text-align: center;
+    padding: 80px 20px;
+    color: var(--white-60);
+  }
+  :global(.purchase-empty-icon) {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    opacity: 0.6;
+  }
+  :global(.purchase-empty-title) {
+    font-size: 1.2rem;
+    color: var(--white-80);
+    margin-bottom: 8px;
+  }
+  :global(.purchase-empty-sub) {
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 768px) {
+    :global(.purchase-stats) {
+      grid-template-columns: 1fr;
+    }
+    :global(.purchase-card-header) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 20px;
+    }
+    :global(.purchase-card-right) {
+      width: 100%;
+      justify-content: space-between;
+    }
+    :global(.purchase-details) {
+      padding: 0 20px 20px;
+    }
+    :global(.purchase-info-grid) {
+      grid-template-columns: 1fr;
+    }
+    :global(.purchase-item-row) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    :global(.purchase-item-right) {
+      align-items: flex-start;
+    }
+  }
 </style>
